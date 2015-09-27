@@ -145,6 +145,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Aplications Service Providers External
+         */
+        Styde\Html\HtmlServiceProvider::class,
+
     ],
 
     /*
@@ -193,6 +198,8 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        //Alias External
+
 
     ],
 
