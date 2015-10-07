@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Facades\Lang;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -10,6 +11,9 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class AuthController extends Controller
 {
+    protected $maxLoginAttempts = 3;
+    protected $lockoutTime = 300;
+
     /*
     |--------------------------------------------------------------------------
     | Registration & Login Controller
@@ -62,4 +66,29 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function loginPath()
+    {
+        return route('login');
+    }
+
+    public function getLogin()
+    {
+        return view('auth/register/login');
+    }
+
+    public function redirectPath()
+    {
+        return route('welcomeAdmin');
+    }
+
+    protected function getLockoutErrorMessage($seconds)
+    {
+        $minutos = round($seconds/60);
+
+        return Lang::has('auth.throttle')
+            ? Lang::get('auth.throttle', ['minutos' => $minutos])
+            : 'Too many login attempts. Please try again in '. $seconds. ' seconds.';
+    }
+
 }

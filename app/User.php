@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'streetAddress', 'secundaryAddress' , 'postCode'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,4 +36,15 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function city()
+    {
+        return $this->belongsTo(citys::class);
+    }
+
+    public function getDireccionAttribute()
+    {
+        return $this->streetAddress!='' ? $this->streetAddress . ' ' .$this->city->city . ' ' .$this->city->state->state .' '. $this->postCode
+            : $this->secundaryAddress . ' ' .$this->city->city . ' ' .$this->city->state->state .' '. $this->postCode;
+    }
 }

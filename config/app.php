@@ -149,6 +149,7 @@ return [
          * Aplications Service Providers External
          */
         Styde\Html\HtmlServiceProvider::class,
+        GeneaLabs\Phpgmaps\PhpgmapsServiceProvider::class,
 
     ],
 
@@ -198,7 +199,10 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        'Gmaps'     => GeneaLabs\Phpgmaps\Facades\Phpgmaps::class,
+         'Access' => \App\AccessHandler::class,
         //Alias External
+
 
 
     ],

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Styde\Html\Facades\Alert;
 
 class PasswordController extends Controller
 {
@@ -29,4 +32,12 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+    public function redirectPath()
+    {
+        Alert::message('Your password has been changed successfully','success');
+        return route('login');
+    }
+
+
 }
