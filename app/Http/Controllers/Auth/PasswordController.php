@@ -35,9 +35,12 @@ class PasswordController extends Controller
 
     public function redirectPath()
     {
+        auth()->logout();
         Alert::message('Your password has been changed successfully','success');
         return route('login');
     }
+
+
 
 
 }

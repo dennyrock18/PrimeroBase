@@ -65,13 +65,29 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::resource('user', 'AdminController');
 
-        Route::get('password/change', ['as'=> 'changePassword','uses'=>'PasswordController@getPassword']);
-        Route::post('password/change', ['as'=> 'changePassword','uses'=>'PasswordController@postPassword']);
+        Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
+        Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);
 
-        Route::get('terminado/{id}', ['as'=> 'terminar','uses'=>'AdminController@terminar']);
+        Route::get('terminado/{id}', ['as' => 'terminar', 'uses' => 'AdminController@terminar']);
+
+        Route::get('city', function () {
+
+            $id = Input::get('state_id');
+            $city = \App\citys::where('state_id','=',$id)->get();
+
+            return Response::json($city);
+        });
 
 
     });
 });
 
 Route::get('map', 'MapController@maps');
+
+//Email de confirmacion de registro
+Route::group(['middleware' => 'RegisterConfirm'], function () {
+    Route::get('confirmation/{token}', [
+        'uses' => 'Admin\AdminController@getConfirmation',
+        'as' => 'confirmation'
+    ]);
+});

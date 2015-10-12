@@ -150,6 +150,7 @@ return [
          */
         Styde\Html\HtmlServiceProvider::class,
         GeneaLabs\Phpgmaps\PhpgmapsServiceProvider::class,
+        D3Catalyst\GeoIP\Laravel4\ServiceProviders\GeoIPServiceProvider::class,
 
     ],
 
@@ -200,8 +201,9 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
         'Gmaps'     => GeneaLabs\Phpgmaps\Facades\Phpgmaps::class,
-         'Access' => \App\AccessHandler::class,
+        'Access'    => \App\AccessHandler::class,
         //Alias External
+        'GeoIP'     => D3Catalyst\GeoIP\Laravel4\Facades\GeoIP::class,
 
 
 

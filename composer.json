@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "styde/html": "~1.0",
-        "genealabs/phpgmaps": "~0.3.0"
+        "genealabs/phpgmaps": "~0.3.0",
+        "d3catalyst/l4-geoip": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

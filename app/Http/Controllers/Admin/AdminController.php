@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\AddUserRequest;
+use App\states;
 use App\User;
+use D3Catalyst\GeoIP\Laravel4\Facades\GeoIP;
 use DOMDocument;
 use GeneaLabs\Phpgmaps\Phpgmaps;
 use Illuminate\Http\Request;
@@ -121,7 +124,12 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        //$GeoIP = GeoIP::getCountry();
+
+        $states = states::lists('state', 'id')->toArray();
+        //$states = states::get();
+
+        return view('auth.Admin.addUser', compact('states'));
     }
 
     /**
@@ -130,9 +138,43 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AddUserRequest $request)
     {
-        //
+        if(!is_numeric($request->get('city_id')))
+        {
+            Alert::message('Debe seleccionar un estado y su ciudad','danger');
+            return redirect()->back();
+        }
+
+        $user = new User($request->all());
+
+        $user->password = bcrypt($request->get('password'));
+        $user->role = $request->get('role');
+        $user->registration_token = str_random(40);
+        //dd($user);
+
+        $user->save();
+
+        $url = route('confirmation', ['token' => $user->registration_token]);
+
+        Mail::send('emails/registrations', compact('user', 'url'), function ($m) use ($user) {
+            $m->to($user->email, $user->name)->subject('Active your account!');
+        });
+
+        Alert::mensage('Se ha creado el Usuario: ' . $user->fullname);
+        return redirect()->route('admin.user.index');
+
+    }
+
+    protected function getConfirmation($token)
+    {
+        $user = User::where('registration_token', $token)->firstOrFail();
+        //dd($user);
+        $user->registration_token = null;
+        $user->save();
+
+        Alert::message('Your email ' . $user->email . ' has been verified.', 'success');
+        return redirect()->route('login');
     }
 
     /**

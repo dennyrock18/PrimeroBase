@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class citys extends Model
 {
+
+    protected $fillable = [''];
+
     public function state()
     {
         return $this->belongsTo(states::class);

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "87ae1e86a4318726e5173f0b84620bce",
-    "content-hash": "c1be91b70b56bd147fc1eafb13ee395a",
+    "hash": "3a1cc4e78645f41fea0a75370bfb9669",
+    "content-hash": "e532ca0ae361d528f1f310497e27df48",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -60,6 +60,61 @@
                 "preload"
             ],
             "time": "2015-06-28 21:39:13"
+        },
+        {
+            "name": "d3catalyst/l4-geoip",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/D3Catalyst/laravel-4-geoip.git",
+                "reference": "2a20abfddc354032d9d4dc243543bffd7b7f70a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/D3Catalyst/laravel-4-geoip/zipball/2a20abfddc354032d9d4dc243543bffd7b7f70a0",
+                "reference": "2a20abfddc354032d9d4dc243543bffd7b7f70a0",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "lib-curl": "*",
+                "php": ">=5.3.7"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "D3Catalyst\\GeoIP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Darwin Biler",
+                    "email": "buonzz@gmail.com"
+                },
+                {
+                    "name": "Ricardo Madrigal",
+                    "email": "soporte@d3catalyst.com"
+                }
+            ],
+            "description": "Laravel 4 Library for detecting geogpraphical location info.",
+            "homepage": "http://laravel.d3catalyst.com/l4-geoip/",
+            "keywords": [
+                "Ip information",
+                "d3catalyst.com",
+                "geoip",
+                "ip to location",
+                "no local geodatabase required",
+                "retrieve location"
+            ],
+            "time": "2014-07-31 10:00:36"
         },
         {
             "name": "danielstjules/stringy",
@@ -2279,16 +2334,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.2.3",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f"
+                "reference": "eabf68b476ac7d0f73793aada060f1c1a9bf8979"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ef1ca6835468857944d5c3b48fa503d5554cff2f",
-                "reference": "ef1ca6835468857944d5c3b48fa503d5554cff2f",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/eabf68b476ac7d0f73793aada060f1c1a9bf8979",
+                "reference": "eabf68b476ac7d0f73793aada060f1c1a9bf8979",
                 "shasum": ""
             },
             "require": {
@@ -2337,7 +2392,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-09-14 06:51:16"
+            "time": "2015-10-06 15:47:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2519,16 +2574,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.10",
+            "version": "4.8.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8"
+                "reference": "bdd199472410fd7e32751f9c814c7e06f2c21bd5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/463163747474815c5ccd4ae12b5b355ec12158e8",
-                "reference": "463163747474815c5ccd4ae12b5b355ec12158e8",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/bdd199472410fd7e32751f9c814c7e06f2c21bd5",
+                "reference": "bdd199472410fd7e32751f9c814c7e06f2c21bd5",
                 "shasum": ""
             },
             "require": {
@@ -2587,7 +2642,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-01 09:14:30"
+            "time": "2015-10-07 10:39:46"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2879,16 +2934,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "c7428acdb62ece0a45e6306f1ae85e1c05b09c01"
+                "reference": "23af31f402993cfd94e99cbc4b782e9a78eb0e97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/c7428acdb62ece0a45e6306f1ae85e1c05b09c01",
-                "reference": "c7428acdb62ece0a45e6306f1ae85e1c05b09c01",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23af31f402993cfd94e99cbc4b782e9a78eb0e97",
+                "reference": "23af31f402993cfd94e99cbc4b782e9a78eb0e97",
                 "shasum": ""
             },
             "require": {
@@ -2926,7 +2981,7 @@
             "keywords": [
                 "global state"
             ],
-            "time": "2014-10-06 09:23:50"
+            "time": "2015-06-21 15:11:22"
         },
         {
             "name": "sebastian/recursion-context",
@@ -3068,7 +3123,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "d3catalyst/l4-geoip": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
