@@ -29,7 +29,7 @@ class PasswordController extends Controller
             'password_confirmation' => 'required'
         ]);
 
-        $user->password = bcrypt($request->get('password'));
+        $user->password = $request->get('password');
         $user->save();
 
         Alert::message('Su password ha sido cambiado','success');

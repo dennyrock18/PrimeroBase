@@ -22,6 +22,8 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
+                    <p><a href="{{route('admin.user.index')}}" class="btn btn-primary"><i
+                                    class="fa fa-hand-o-left fa-fw"></i>Atras</a></p>
                     <div class="row">
                         <!-- Map Column -->
                         <div class="col-md-8">

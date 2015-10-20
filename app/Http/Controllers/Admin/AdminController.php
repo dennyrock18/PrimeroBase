@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\citys;
+use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\editUserRequest;
 use App\states;
 use App\User;
-use D3Catalyst\GeoIP\Laravel4\Facades\GeoIP;
 use DOMDocument;
 use GeneaLabs\Phpgmaps\Phpgmaps;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Styde\Html\Facades\Alert;
 
 class AdminController extends Controller
@@ -31,11 +33,11 @@ class AdminController extends Controller
             $m->to($users->email, $users->name)->subject('Su equipo esta Listo!!!!');
         });
 
-        $users->terminado=1;
+        $users->terminado = 1;
 
         $users->save();
 
-        Alert::message('Se le ha enviado un correo al Usuario: '.$users->fullname, 'success');
+        Alert::message('Se le ha enviado un correo al Usuario: ' . $users->fullname, 'success');
         return redirect()->route('admin.user.index');
 
     }
@@ -50,8 +52,30 @@ class AdminController extends Controller
         $marker = $this->maps($latitudLongitud);
 
 
-        return view('auth/Admin/detailsUser', compact('users','marker'));
+        return view('auth/Admin/detailsUser', compact('users', 'marker'));
 
+    }
+
+    public function latiLongi($direccion)
+    {
+        $latitud = 0;
+        $longitud = 0;
+        $doc = new DOMDocument();
+        $xml = "http://maps.googleapis.com/maps/api/geocode/xml?address=" . $direccion . "&sensor=true";
+        $doc->load($xml);
+
+        $persona = $doc->getElementsByTagName("result");
+
+        foreach ($persona as $p) {
+            $latitud = $p->getElementsByTagName("lat");
+            $latitud = $latitud->item(0)->nodeValue;
+
+            $longitud = $p->getElementsByTagName("lng");
+            $longitud = $longitud->item(0)->nodeValue;
+
+        }
+
+        return $latitudLongitud = array('latitud' => $latitud, 'longitud' => $longitud);
     }
 
     /**
@@ -63,7 +87,7 @@ class AdminController extends Controller
 
         $marker = array();
         $config = array();
-        $config['center'] = ''. $latitudLongitud['latitud']. ','.$latitudLongitud['longitud'].'';
+        $config['center'] = '' . $latitudLongitud['latitud'] . ',' . $latitudLongitud['longitud'] . '';
         $config['zoom'] = 'auto';
         $config['onboundschanged'] = 'if (!centreGot) {
                     var mapCentre = map.getCenter();
@@ -80,29 +104,6 @@ class AdminController extends Controller
 
         return $marker;
 
-    }
-
-    public function latiLongi($direccion)
-    {
-        $latitud = 0;
-        $longitud = 0;
-        $doc=new DOMDocument();
-        $xml="http://maps.googleapis.com/maps/api/geocode/xml?address=".$direccion."&sensor=true";
-        $doc->load($xml);
-
-        $persona=$doc->getElementsByTagName("result");
-
-        foreach ($persona as $p)
-        {
-            $latitud=$p->getElementsByTagName("lat");
-            $latitud=$latitud->item(0)->nodeValue;
-
-            $longitud=$p->getElementsByTagName("lng");
-            $longitud=$longitud->item(0)->nodeValue;
-
-        }
-
-        return $latitudLongitud = array('latitud' => $latitud, 'longitud' => $longitud);
     }
 
     /**
@@ -122,12 +123,15 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public static function state()
+    {
+        return states::lists('state', 'id')->toArray();
+    }
     public function create()
     {
         //$GeoIP = GeoIP::getCountry();
 
-        $states = states::lists('state', 'id')->toArray();
-        //$states = states::get();
+        $states = $this->state();
 
         return view('auth.Admin.addUser', compact('states'));
     }
@@ -135,24 +139,18 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(AddUserRequest $request)
     {
-        if(!is_numeric($request->get('city_id')))
-        {
-            Alert::message('Debe seleccionar un estado y su ciudad','danger');
+        if (!is_numeric($request->get('city_id'))) {
+            Alert::message('Debe seleccionar un estado y su ciudad', 'danger');
             return redirect()->back();
         }
-
         $user = new User($request->all());
-
-        $user->password = bcrypt($request->get('password'));
         $user->role = $request->get('role');
         $user->registration_token = str_random(40);
-        //dd($user);
-
         $user->save();
 
         $url = route('confirmation', ['token' => $user->registration_token]);
@@ -161,26 +159,15 @@ class AdminController extends Controller
             $m->to($user->email, $user->name)->subject('Active your account!');
         });
 
-        Alert::mensage('Se ha creado el Usuario: ' . $user->fullname);
+        Alert::message('Se ha creado el Usuario: ' . $user->fullname, 'succeess');
         return redirect()->route('admin.user.index');
 
-    }
-
-    protected function getConfirmation($token)
-    {
-        $user = User::where('registration_token', $token)->firstOrFail();
-        //dd($user);
-        $user->registration_token = null;
-        $user->save();
-
-        Alert::message('Your email ' . $user->email . ' has been verified.', 'success');
-        return redirect()->route('login');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -191,36 +178,67 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $users = User::Find($id);
+        $user = User::find($id);
+        $states = $this->state();
 
-        return view('auth.Admin.addUser', compact('users'));
+        return view('auth.Admin.editUser', compact('user','states'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(editUserRequest $request, $id)
     {
-        //
+
+
+        $user = User::find($id);
+        $user->role = $request->get('role');
+        $user->fill($request->all());
+        $user->save();
+
+        Alert::message('It has been updated successfully', 'success');
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        $message = 'El usuario: ' . $user->fullname . ' fue eliminado de nuestro registro';
+        if($request->ajax())
+        {
+            return response()->json([
+                'id' => $user->id,
+                'message' => $message
+            ]);
+        }
+
+        Session::flash('message', $message);
+        return redirect()->route('admin.users.index');
+    }
+
+    protected function getConfirmation($token)
+    {
+        $user = User::where('registration_token', $token)->firstOrFail();
+        $user->registration_token = null;
+        $user->save();
+
+        Alert::message('Your email ' . $user->email . ' has been verified.', 'success');
+        return redirect()->route('login');
     }
 }

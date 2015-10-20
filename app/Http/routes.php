@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
 
         Route::resource('user', 'AdminController');
+        Route::resource('equipo', 'tipoEquipoController');
 
         Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
         Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);

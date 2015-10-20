@@ -251,6 +251,9 @@
                         <li>
                             <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> Usuarios</a>
                         </li>
+                        <li>
+                            <a href="{{route('admin.equipo.index')}}"><i class="fa fa-laptop fa-fw"></i> Tipo Equipo</a>
+                        </li>
 
                     </ul>
                     <!-- /.nav-second-level -->

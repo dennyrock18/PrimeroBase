@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['fullname', 'id_user','email', 'password','phone' ,'streetAddress', 'secundaryAddress' ,'city_id', 'postCode'];
+    protected $fillable = ['fullname', 'id_user','email', 'password','phone' ,'streetAddress', 'city_id','secundaryAddress' ,'postCode'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -46,5 +46,19 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->streetAddress!='' ? $this->streetAddress . ' ' .$this->city->city . ' ' .$this->city->state->state .' '. $this->postCode
             : $this->secundaryAddress . ' ' .$this->city->city . ' ' .$this->city->state->state .' '. $this->postCode;
+    }
+    public function setPasswordAttribute($value)
+    {
+        //$this->attributes['password']=\Hash::make($value);
+        if(!empty($value)) {
+            $this->attributes['password'] = bcrypt($value);
+        }
+    }
+
+    public function setCityidAttribute($value)
+    {
+        if(is_numeric($value)) {
+            $this->attributes['city_id'] = $value;
+        }
     }
 }

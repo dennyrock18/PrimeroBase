@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Agregar</h1>
+                <h1 class="page-header">Editar</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -14,10 +14,10 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Usuario
+                        {{$user->fullname}}
                     </div>
                     <div class="panel-body">
-                        <p><a href="{{route('admin.user.index')}}" class="btn btn-primary"><i
+                        <p><a href="{{route('detailsUser', $user->id)}}" class="btn btn-primary"><i
                                         class="fa fa-hand-o-left fa-fw"></i>Atras</a></p>
 
                         <p> @include('partials.message')</p>
@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-lg-6">
-                                    {!! Form::open(['route' => 'admin.user.store', 'method' => 'POST']) !!}
+                                    {!! Form::model($user,['route' => ['admin.user.update', $user], 'method' => 'PUT']) !!}
                                     <div class="form-group">
                                         {!! Field::text('fullname',['label' => 'Full name','required','class'=> 'form-control', 'placeholder' => 'Please, write the full name']) !!}
                                     </div>
@@ -36,7 +36,7 @@
                                         {!! Field::text('secundaryAddress',['label' => 'Secundary Address','class'=> 'form-control', 'placeholder' => 'Please, write the secundary address']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::select('state',$states ,['empty' => 'Seleccione...','label' => 'Estado','required','id' => 'state','class' => 'form-control']) !!}
+                                        {!! Field::select('state',$states , ['empty'=>'Seleccione...','label' => 'Estado','id' => 'state','class' => 'form-control']) !!}
                                         {{--<label>
                                             Estado
                                         </label>
@@ -51,13 +51,11 @@
                                         {!! Field::text('postCode',['label' => 'Post Code','required','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::password('password',['class'=> 'form-control','required', 'placeholder' => 'Please, write the password']) !!}
+                                        {!! Field::password('password',['class'=> 'form-control']) !!}
                                     </div>
-                                    <div class="form-group">
 
-                                    </div>
                                     <div class="form-group">
-                                        <p>{!! Form::submit('Crear', ['class' => 'btn btn-success ']) !!}</p>
+                                        <p>{!! Form::submit('Aceptar', ['class' => 'btn btn-success ']) !!}</p>
                                     </div>
                                 </div>
                                 <!-- /.col-lg-6 (nested) -->
@@ -75,7 +73,7 @@
 
                                     <div class="form-group">
                                         {{--{!! Field::select('city_id',null ,['empty' => 'Debe seleccionar primero el estado','required','label' => 'Ciudad','id' => 'city','class' => 'form-control']) !!} --}}
-                                        <label >
+                                        <label>
                                             Ciudad
                                         </label>
                                         <select id="city" class="form-control" name="city_id">
@@ -87,7 +85,7 @@
                                         {!! Field::select('role', trans('role.types'),['empty' => 'Seleccione...','class' => 'form-control','required']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::password('password_confirmation',['label' => 'Password Confirmation','class'=> 'form-control', 'placeholder' => 'Please, write the password confirmatio']) !!}
+                                        {!! Field::password('password_confirmation',['label' => 'Password Confirmation','class'=> 'form-control']) !!}
                                     </div>
 
                                 </div>
