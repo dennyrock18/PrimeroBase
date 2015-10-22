@@ -246,13 +246,13 @@
                     <a href="{{route('welcomeAdmin')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-user fa-fw"></i> Administrar Usuarios<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Administrar <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> Usuarios</a>
                         </li>
                         <li>
-                            <a href="{{route('admin.equipo.index')}}"><i class="fa fa-laptop fa-fw"></i> Tipo Equipo</a>
+                            <a href="{{route('admin.equipo.index')}}"><i class="fa fa-laptop fa-fw"></i> Tipos de Equipos</a>
                         </li>
 
                     </ul>

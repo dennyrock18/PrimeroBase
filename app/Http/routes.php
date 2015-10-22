@@ -79,7 +79,6 @@ Route::group(['middleware' => 'auth'], function () {
             return Response::json($city);
         });
 
-
     });
 });
 
@@ -92,3 +91,5 @@ Route::group(['middleware' => 'RegisterConfirm'], function () {
         'as' => 'confirmation'
     ]);
 });
+
+

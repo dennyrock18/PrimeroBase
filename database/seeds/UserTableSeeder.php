@@ -38,6 +38,7 @@ class UserTableSeeder extends BaseSeeder
             //'city_id' => 13,
             'postCode' => '',
             'role' => 'admin',
+            'terminado'=>'0',
 
         ]);
     }
@@ -54,10 +55,10 @@ class UserTableSeeder extends BaseSeeder
 
             'streetAddress' => $faker->streetAddress,
             'secundaryAddress' => $faker->streetAddress,
-            //'city_id' => $this->getRandom('Citys')->id,
-            //'city_id' => '13',
+
             'postCode' => $faker->postcode,
             'role' => 'user',//$faker->randomElement(['user','edit']),
+            'terminado'=>'1',
 
 
         ];

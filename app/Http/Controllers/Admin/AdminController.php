@@ -47,6 +47,8 @@ class AdminController extends Controller
 
         $users = User::Find($id);
 
+        //dd($users);
+
         $latitudLongitud = $this->latiLongi($users->Direccion);
 
         $marker = $this->maps($latitudLongitud);

@@ -19,13 +19,15 @@ class DatabaseSeeder extends Seeder
 
             'users',
             'states',
-            'citys',
+            'equipos',
+            'tipo_equipos',
 
         ));
 
         $this->call(StateTableSeeder::class);
-        $this->call(CityTableSeeder::class);
+        $this->call(TipoEquipoTableSeeder::class);
         $this->call(UserTableSeeder::class);
+        $this->call(EquipoTableSeeder::class);
 
         Model::reguard();
     }

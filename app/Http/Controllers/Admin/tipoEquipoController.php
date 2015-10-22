@@ -43,7 +43,7 @@ class tipoEquipoController extends Controller
 
         $this->validate($request, [
 
-            'tipoequipo' => 'required'
+            'tipoequipo' => 'required|unique:tipo_equipos,tipoequipo'
         ]);
 
         $tipoEquipo = new tipoEquipo($request->all());
@@ -88,7 +88,7 @@ class tipoEquipoController extends Controller
     {
 
         $this->validate($request, [
-            'tipoequipo' => 'required'
+            'tipoequipo' => 'required|unique:tipo_equipos,tipoequipo'
         ]);
 
         $tipoEquipo = tipoEquipo::find($id);
