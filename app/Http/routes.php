@@ -63,8 +63,22 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'AdminController@detailsUser'
         ]);
 
+        Route::get('add/{id}/equipo', [
+
+            'as' => 'foraddequipouser',
+            'uses' => 'UserEquipoController@getquipouser'
+        ]);
+        Route::post('add/{id}/equipo', [
+
+            'as' => 'addequipouser',
+            'uses' => 'UserEquipoController@postquipouser'
+        ]);
+
+        Route::resource('add/user/equipos', 'UserEquipoController');
         Route::resource('user', 'AdminController');
-        Route::resource('equipo', 'tipoEquipoController');
+        Route::resource('tipoequipo', 'tipoEquipoController');
+        Route::resource('equipo', 'equipoController');
+
 
         Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
         Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);
@@ -81,8 +95,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 });
-
-Route::get('map', 'MapController@maps');
 
 //Email de confirmacion de registro
 Route::group(['middleware' => 'RegisterConfirm'], function () {

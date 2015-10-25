@@ -37,6 +37,11 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function equipo()
+    {
+        return $this->hasMany(Equipo::class);
+    }
+
     public function city()
     {
         return $this->belongsTo(citys::class);

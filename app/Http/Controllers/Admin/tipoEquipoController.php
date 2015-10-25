@@ -18,7 +18,7 @@ class tipoEquipoController extends Controller
     public function index()
     {
         $tipoequipo = tipoEquipo::get();
-        return view('auth.crudequipo.listequipo', compact('tipoequipo'));
+        return view('auth.crudtipoequipo.listequipo', compact('tipoequipo'));
     }
 
     /**
@@ -28,7 +28,7 @@ class tipoEquipoController extends Controller
      */
     public function create()
     {
-        return view('auth.crudequipo.addequipo');
+        return view('auth.crudtipoequipo.addequipo');
     }
 
     /**
@@ -50,7 +50,7 @@ class tipoEquipoController extends Controller
         $tipoEquipo->save();
 
         Alert::message('Se agrego un nuevo equipo', 'success');
-        return redirect()->route('admin.equipo.index');
+        return redirect()->route('admin.tipoequipo.index');
     }
 
     /**
@@ -74,7 +74,7 @@ class tipoEquipoController extends Controller
     {
         $tipoequipo = tipoEquipo::find($id);
 
-        return view('auth.crudequipo.editEquipo', compact('tipoequipo'));
+        return view('auth.crudtipoequipo.editEquipo', compact('tipoequipo'));
     }
 
     /**
@@ -121,6 +121,6 @@ class tipoEquipoController extends Controller
         }
 
         Session::flash('message', $message);
-        return redirect()->route('admin.equipo.index');
+        return redirect()->route('admin.tipoequipo.index');
     }
 }

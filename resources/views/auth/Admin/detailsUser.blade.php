@@ -6,9 +6,9 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Detalle del Usuario
+            <h3 class="page-header">Detalle del Usuario
                 <small>{{ $users->fullname }}</small>
-            </h1>
+            </h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>

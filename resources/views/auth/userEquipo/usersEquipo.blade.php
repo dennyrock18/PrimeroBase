@@ -20,8 +20,6 @@
                     <div class="panel-body">
                         @include('partials.message')
                         <div class="dataTable_wrapper">
-                            <p><a  title="Agregar Usuario" href="{{route('admin.user.create')}}" class="btn btn-primary"><i
-                                            class="fa fa-plus-circle fa-fw"></i>Agregar Usuario</a></p>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
@@ -43,19 +41,16 @@
                                                 <td>{{$user->id_user}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <td><a href="{{route('detailsUser', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}" title="Detalle de {{$user->fullname}}"></a> || <a href="{{route('admin.user.edit', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}" title="Editar a {{$user->fullname}}"></a> || <a
-                                                            href="#" class="btn-delete"><img title="Eliminar {{$user->fullname}}"
-                                                                src="{{asset('imag/delete.png')}}"></a> ||
-                                                    @if($user->terminado != 0)
-                                                        <a href="#"><img src="{{asset('imag/forudaa.png')}}" title="Terminado"></a>
-                                                    @else
+                                                <td><a href="{{route('foraddequipouser', $user->id)}}"><img
+                                                                src="{{asset('imag/equipo.png')}}"
+                                                                title="Agregar un equipo a {{$user->fullname}}"></a> ||
+                                                    <a href="{{route('admin.add.user.equipos.edit', $user->id)}}"><img
+                                                                src="{{asset('imag/Edit.png')}}"
+                                                                title="Equipos de {{$user->fullname}}"></a> || <a
+                                                            href="#" class="btn-delete"><img
+                                                                title="Informe de los equipos de {{$user->fullname}}"
+                                                                src="{{asset('imag/pdf.png')}}"></a>
 
-                                                        <a
-                                                                href="{{route('terminar',$user->id)}}"><img
-                                                                    title="No se ha visto" src="{{asset('imag/noterminado.png')}}"></a></td>
-                                                @endif
 
                                             </tr>
                                         @endif
@@ -101,12 +96,12 @@
                 var url = form.attr('action').replace(':USER_ID', id);
                 var data = form.serialize();
 
+                row.fadeOut();
 
                 $.post(url, data, function (result) {
                     alert(result.message);
-                    row.fadeOut();
                 }).fail(function () {
-                    alert('El equipo no fue eliminado, Tiene elementos asociados a el');
+                    alert('El usuario no fue eliminado');
                     row.show();
                 });
             });
