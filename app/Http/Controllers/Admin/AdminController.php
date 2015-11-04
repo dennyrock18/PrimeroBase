@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\citys;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\editUserRequest;
-use App\states;
 use App\User;
 use DOMDocument;
 use GeneaLabs\Phpgmaps\Phpgmaps;
@@ -21,22 +19,17 @@ class AdminController extends Controller
     public function setting()
     {
         return view('auth/Admin/index');
-
     }
 
     public function terminar($id)
     {
-        //dd('esta aqui');
         $users = User::Find($id);
-
         Mail::send('emails/confirm', compact('users'), function ($m) use ($users) {
             $m->to($users->email, $users->name)->subject('Su equipo esta Listo!!!!');
         });
 
         $users->terminado = 1;
-
         $users->save();
-
         Alert::message('Se le ha enviado un correo al Usuario: ' . $users->fullname, 'success');
         return redirect()->route('admin.user.index');
 
@@ -44,16 +37,9 @@ class AdminController extends Controller
 
     public function detailsUser($id)
     {
-
         $users = User::Find($id);
-
-        //dd($users);
-
         $latitudLongitud = $this->latiLongi($users->Direccion);
-
         $marker = $this->maps($latitudLongitud);
-
-
         return view('auth/Admin/detailsUser', compact('users', 'marker'));
 
     }
@@ -116,7 +102,6 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::get();
-
         return view('auth/Admin/users', compact('users'));
     }
 
@@ -125,16 +110,11 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public static function state()
-    {
-        return states::lists('state', 'id')->toArray();
-    }
+
     public function create()
     {
         //$GeoIP = GeoIP::getCountry();
-
-        $states = $this->state();
-
+        $states = state();
         return view('auth.Admin.addUser', compact('states'));
     }
 
@@ -161,7 +141,7 @@ class AdminController extends Controller
             $m->to($user->email, $user->name)->subject('Active your account!');
         });
 
-        Alert::message('Se ha creado el Usuario: ' . $user->fullname, 'succeess');
+        Alert::message('Se ha creado el Usuario: ' . $user->fullname, 'success');
         return redirect()->route('admin.user.index');
 
     }
@@ -186,7 +166,7 @@ class AdminController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $states = $this->state();
+        $states = state();
 
         return view('auth.Admin.editUser', compact('user','states'));
     }
@@ -200,8 +180,6 @@ class AdminController extends Controller
      */
     public function update(editUserRequest $request, $id)
     {
-
-
         $user = User::find($id);
         $user->role = $request->get('role');
         $user->fill($request->all());

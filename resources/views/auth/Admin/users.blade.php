@@ -20,7 +20,7 @@
                     <div class="panel-body">
                         @include('partials.message')
                         <div class="dataTable_wrapper">
-                            <p><a  title="Agregar Usuario" href="{{route('admin.user.create')}}" class="btn btn-primary"><i
+                            <p><a title="Agregar Usuario" href="{{route('admin.user.create')}}" class="btn btn-primary"><i
                                             class="fa fa-plus-circle fa-fw"></i>Agregar Usuario</a></p>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
@@ -35,7 +35,7 @@
                                 </thead>
                                 <tbody>
                                 @foreach($users as $user)
-                                    @if(auth()->user()->id != $user->id)
+                                    @if(isNotAdmin($user->role))
                                         @if($user->registration_token=="")
                                             <tr class="gradeA" data-id="{{$user->id}}">
                                                 <td>{{$user->id}}</td>
@@ -44,17 +44,23 @@
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
                                                 <td><a href="{{route('detailsUser', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}" title="Detalle de {{$user->fullname}}"></a> || <a href="{{route('admin.user.edit', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}" title="Editar a {{$user->fullname}}"></a> || <a
-                                                            href="#" class="btn-delete"><img title="Eliminar {{$user->fullname}}"
+                                                                src="{{asset('imag/Edit.png')}}"
+                                                                title="Detalle de {{$user->fullname}}"></a> || <a
+                                                            href="{{route('admin.user.edit', $user->id)}}"><img
+                                                                src="{{asset('imag/Edit.png')}}"
+                                                                title="Editar a {{$user->fullname}}"></a> || <a
+                                                            href="#" class="btn-delete"><img
+                                                                title="Eliminar {{$user->fullname}}"
                                                                 src="{{asset('imag/delete.png')}}"></a> ||
                                                     @if($user->terminado != 0)
-                                                        <a href="#"><img src="{{asset('imag/forudaa.png')}}" title="Terminado"></a>
+                                                        <a href="#"><img src="{{asset('imag/forudaa.png')}}"
+                                                                         title="Terminado"></a>
                                                     @else
 
                                                         <a
                                                                 href="{{route('terminar',$user->id)}}"><img
-                                                                    title="No se ha visto" src="{{asset('imag/noterminado.png')}}"></a></td>
+                                                                    title="No se ha visto"
+                                                                    src="{{asset('imag/noterminado.png')}}"></a></td>
                                                 @endif
 
                                             </tr>
@@ -63,6 +69,9 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            {!! Form::open(['route' => ['admin.user.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
                     <!-- /.panel-body -->
@@ -73,9 +82,7 @@
         </div>
         <!-- /.row -->
     </div>
-    {!! Form::open(['route' => ['admin.user.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
 
-    {!! Form::close() !!}
 
     @stop
 
@@ -92,7 +99,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.btn-delete').click(function (e) {
+            $(document).on('click', '.btn-delete',function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');
@@ -102,13 +109,18 @@
                 var data = form.serialize();
 
 
-                $.post(url, data, function (result) {
-                    alert(result.message);
-                    row.fadeOut();
-                }).fail(function () {
-                    alert('El equipo no fue eliminado, Tiene elementos asociados a el');
-                    row.show();
-                });
+                if (confirm("Realmente decea eliminar este registro ?"))
+                {
+                    $.post(url, data, function (result) {
+                        alert(result.message);
+                        row.fadeOut();
+                    }).fail(function () {
+                        alert('El usuario no fue eliminado, Tiene elementos asociados a el');
+                        row.show();
+                    });
+                }
+
+
             });
         });
 

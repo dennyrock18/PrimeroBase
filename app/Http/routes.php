@@ -63,6 +63,12 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'AdminController@detailsUser'
         ]);
 
+        Route::get('administrator/details/{id}/user', [
+
+            'as' => 'detailsUserAdmin',
+            'uses' => 'AdminUserController@detailsUser'
+        ]);
+
         Route::get('add/{id}/equipo', [
 
             'as' => 'foraddequipouser',
@@ -78,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('user', 'AdminController');
         Route::resource('tipoequipo', 'tipoEquipoController');
         Route::resource('equipo', 'equipoController');
+        Route::resource('administrator', 'AdminUserController');
 
 
         Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);

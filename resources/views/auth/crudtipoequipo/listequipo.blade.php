@@ -78,7 +78,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.btn-delete').click(function (e) {
+            $(document).on('click', '.btn-delete',function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');
@@ -87,14 +87,16 @@
                 var url = form.attr('action').replace(':EQUIPO_ID', id);
                 var data = form.serialize();
 
+                if (confirm("Realmente decea eliminar este registro ?")) {
 
-                $.post(url, data, function (result) {
-                    alert(result.message);
-                    row.fadeOut();
-                }).fail(function () {
-                    alert('El equipo no fue eliminado, Tiene elementos asociados a el');
-                    row.show();
-                });
+                    $.post(url, data, function (result) {
+                        alert(result.message);
+                        row.fadeOut();
+                    }).fail(function () {
+                        alert('El tipo de equipo no fue eliminado, Tiene elementos asociados a el');
+                        row.show();
+                    });
+                }
             });
         });
 

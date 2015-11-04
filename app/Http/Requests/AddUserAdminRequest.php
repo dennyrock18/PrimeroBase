@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class editUserRequest extends Request
+class AddUserAdminRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,13 @@ class editUserRequest extends Request
     public function rules()
     {
         return [
-
             'fullname' => 'required',
-            'id_user' => 'required|min:13|max:13|unique:users,id_user,'. $this->route()->parameter('user'),
-            'email'    => 'required|unique:users,email,'. $this->route()->parameter('user'),
-            'password' => 'confirmed|min:6',
-            'phone' => 'required|min:14|max:14|unique:users,phone,'. $this->route()->parameter('user'),
+            'id_user' => 'required|min:13|max:13|unique:users,id_user',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|confirmed|min:6',
+            'phone' => 'required|min:14|max:14|unique:users,phone',
             'streetAddress' => 'required|max:30',
-            'secundaryAddress' => 'max:30',
             'postCode' => 'required|max:10',
-            'role' => 'required|in:edit,user'
-
 
         ];
     }

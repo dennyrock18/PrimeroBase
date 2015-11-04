@@ -157,8 +157,9 @@
                 <li>
                     <a href="#">
                         <div>
-                            <i class="fa fa-comment fa-fw"></i> New Comment
+                            <i class="fa fa-user fa-fw"></i> New User Registrated
                             <span class="pull-right text-muted small">4 minutes ago</span>
+                            asdasdasd
                         </div>
                     </a>
                 </li>
@@ -211,10 +212,10 @@
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> {{auth()->user()->fullname}} <i class="fa fa-caret-down"></i>
+                <i class="fa fa-user fa-fw"></i> {{currentUser()->fullname}} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="{{route('detailsUser', auth()->user()->id)}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
                 <li><a href="{{route('changePassword')}}"><i class="fa fa-key fa-fw"></i> Change Password</a>
                 </li>
@@ -238,6 +239,9 @@
                 <li>
                     <a href="#"><i class="fa fa-wrench fa-fw"></i> Administrar <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
+                        <li>
+                            <a href="{{route('admin.administrator.index')}}"><i class="fa fa-key fa-fw"></i> Adminis del Sistema</a>
+                        </li>
                         <li>
                             <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> Usuarios</a>
                         </li>

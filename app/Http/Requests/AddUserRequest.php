@@ -25,14 +25,14 @@ class AddUserRequest extends Request
     {
         return [
             'fullname' => 'required',
-            'id_user' => 'required|min:13|max:13',
+            'id_user' => 'required|min:13|max:13|unique:users,id_user',
             'email' => 'required|unique:users,email',
             'password' => 'required|confirmed|min:6',
-            'phone' => 'required|min:14|max:14',
+            'phone' => 'required|min:14|max:14|unique:users,phone',
             'streetAddress' => 'required|max:30',
             'secundaryAddress' => 'max:30',
             'postCode' => 'required|max:10',
-            'role' => 'required|in:admin,edit,user',
+            'role' => 'required|in:edit,user',
 
         ];
     }

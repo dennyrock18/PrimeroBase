@@ -22,7 +22,7 @@ class Role
      */
     public function handle($request, Closure $next, $role)
     {
-        $user = auth()->user();
+        $user = currentUser();
 
         if($this->hierarchy[$user->role]< $this->hierarchy[$role])
         {

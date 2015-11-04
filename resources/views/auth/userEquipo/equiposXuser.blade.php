@@ -41,7 +41,10 @@
                                         <td>{{$equipo->s_n}}</td>
                                         <td>{{$equipo->model}}</td>
                                         <td>{{$equipo->type->tipoequipo}}</td>
-                                        <td>Acciones</td>
+                                        <td class="col-lg-2"><center><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
+                                                        src="{{asset('imag/Edit.png')}}" title="Editar a {{$equipo->s_n}}"></a> || <a
+                                                    href="#" class="btn-delete"><img title="Eliminar a {{$equipo->s_n}}"
+                                                                                     src="{{asset('imag/delete.png')}}"></a></center></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -56,7 +59,7 @@
         </div>
         <!-- /.row -->
     </div>
-    {!! Form::open(['route' => ['admin.equipo.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
+    {!! Form::open(['route' => ['admin.equipo.destroy', ':EQUIPO_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
 
     {!! Form::close() !!}
 
@@ -75,7 +78,7 @@
 
     <script>
         $(document).ready(function () {
-            $('.btn-delete').click(function (e) {
+            $(document).on('click', '.btn-delete',function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');
@@ -84,14 +87,15 @@
                 var url = form.attr('action').replace(':EQUIPO_ID', id);
                 var data = form.serialize();
 
-                row.fadeOut();
-
-                $.post(url, data, function (result) {
-                    alert(result.message);
-                }).fail(function () {
-                    alert('El EQUIPO no fue eliminado');
-                    row.show();
-                });
+                if (confirm("Realmente decea eliminar este registro ?")) {
+                    $.post(url, data, function (result) {
+                        alert(result.message);
+                        row.fadeOut();
+                    }).fail(function () {
+                        alert('El equipo no fue eliminado');
+                        row.show();
+                    });
+                }
             });
         });
 
