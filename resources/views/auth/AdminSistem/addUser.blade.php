@@ -58,17 +58,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Field::text('phone',['label' => 'Phone','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
+                                        {!! Field::tel('phone',['label' => 'Phone','required','class'=> 'form-control','pattern'=>'[0-9]{9}','maxlength'=>'14' ,'placeholder' => 'Please, write the phone']) !!}
                                     </div>
-
                                     <div class="form-group">
-                                        {{--{!! Field::select('city_id',null ,['empty' => 'Debe seleccionar primero el estado','required','label' => 'Ciudad','id' => 'city','class' => 'form-control']) !!} --}}
-                                        <label >
-                                            Ciudad
-                                        </label>
-                                        <select id="city" class="form-control" name="city_id">
-                                            <option>Debe escoger un estado primero</option>
-                                        </select>
+                                        {!! Field::select('city_id',null ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password_confirmation',['label' => 'Password Confirmation','class'=> 'form-control', 'placeholder' => 'Please, write the password confirmatio']) !!}

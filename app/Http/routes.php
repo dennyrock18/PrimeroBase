@@ -13,6 +13,8 @@
 
 
 // Authentication routes...
+use App\citys;
+
 Route::get('/', [
     'as' => 'login',
     'uses' => 'Auth\AuthController@getLogin'
@@ -93,9 +95,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('terminado/{id}', ['as' => 'terminar', 'uses' => 'AdminController@terminar']);
 
         Route::get('city', function () {
-
             $id = Input::get('state_id');
-            $city = \App\citys::where('state_id','=',$id)->get();
+            $city = citys::where('state_id','=',$id)
+                ->get()
+                ->toArray();
+
+            array_unshift($city, ['id' => '', 'city' => 'Select value']);
 
             return Response::json($city);
         });

@@ -44,6 +44,7 @@ class AdminUserController extends Controller
      */
     public function store(AddUserAdminRequest $request)
     {
+        //dd($request->all());
         if (!is_numeric($request->get('city_id'))) {
             Alert::message('Debe seleccionar un estado y su ciudad', 'danger');
             return redirect()->back();
@@ -128,59 +129,11 @@ class AdminUserController extends Controller
     public function detailsUser($id)
     {
         $users = User::Find($id);
-        $latitudLongitud = $this->latiLongi($users->Direccion);
-        $marker = $this->maps($latitudLongitud);
-        return view('auth/AdminSistem/detailsUser', compact('users', 'marker'));
+        $marker = details($id);
+
+        return view('auth/AdminSistem/detailsUser', compact('users','marker'));
 
     }
 
-    public function latiLongi($direccion)
-    {
-        $latitud = 0;
-        $longitud = 0;
-        $doc = new DOMDocument();
-        $xml = "http://maps.googleapis.com/maps/api/geocode/xml?address=" . $direccion . "&sensor=true";
-        $doc->load($xml);
 
-        $persona = $doc->getElementsByTagName("result");
-
-        foreach ($persona as $p) {
-            $latitud = $p->getElementsByTagName("lat");
-            $latitud = $latitud->item(0)->nodeValue;
-
-            $longitud = $p->getElementsByTagName("lng");
-            $longitud = $longitud->item(0)->nodeValue;
-
-        }
-
-        return $latitudLongitud = array('latitud' => $latitud, 'longitud' => $longitud);
-    }
-
-    /**
-     * @param $latitudLongitud
-     * @return array
-     */
-    public function maps($latitudLongitud)
-    {
-
-        $marker = array();
-        $config = array();
-        $config['center'] = '' . $latitudLongitud['latitud'] . ',' . $latitudLongitud['longitud'] . '';
-        $config['zoom'] = 'auto';
-        $config['onboundschanged'] = 'if (!centreGot) {
-                    var mapCentre = map.getCenter();
-                    marker_0.setOptions({
-                        position: new google.maps.LatLng(mapCentre.lat(), mapCentre.lng())
-                    });
-                }
-                centreGot = true;';
-
-        $m = new Phpgmaps($config);
-        $m->add_marker($marker);
-        $map = $m->create_map();
-        $marker = array('map_js' => $map['js'], 'map_html' => $map['html']);
-
-        return $marker;
-
-    }
 }

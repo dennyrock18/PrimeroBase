@@ -13,17 +13,15 @@
 
 {!! Html::script('admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') !!}
 
-
         <!-- Custom Theme JavaScript -->
 {!! Html::script('admin/dist/js/sb-admin-2.js') !!}
 
-<link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('select').select2();
-    });
-</script>
+        <!-- Morris Charts JavaScript -->
+
+
+
+
+
 
 
 

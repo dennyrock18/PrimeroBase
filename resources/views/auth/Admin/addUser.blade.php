@@ -70,10 +70,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Field::text('phone',['label' => 'Phone','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
+                                        {!! Field::tel('phone',['label' => 'Phone','pattern'=>'[0-9]{9}','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
+                                    </div>
+                                    <div class="form-group">
+                                        {!! Field::select('city_id',null ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
                                     </div>
 
-                                    <div class="form-group">
+                                   <!-- <div class="form-group">
                                         {{--{!! Field::select('city_id',null ,['empty' => 'Debe seleccionar primero el estado','required','label' => 'Ciudad','id' => 'city','class' => 'form-control']) !!} --}}
                                         <label >
                                             Ciudad
@@ -82,7 +85,7 @@
                                             <option>Debe escoger un estado primero</option>
                                         </select>
 
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
                                         {!! Field::select('role', trans('role.types'),['empty' => 'Seleccione...','class' => 'form-control','required']) !!}
                                     </div>
