@@ -42,6 +42,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany(Equipo::class);
     }
 
+    public function pdf()
+    {
+        return $this->hasMany(pdf::class);
+    }
+
     public function city()
     {
         return $this->belongsTo(citys::class);
@@ -66,4 +71,10 @@ class User extends Model implements AuthenticatableContract,
             $this->attributes['city_id'] = $value;
         }
     }
+
+    public function getStateidAttribute()
+    {
+        return $this->city->state->id;
+    }
+
 }

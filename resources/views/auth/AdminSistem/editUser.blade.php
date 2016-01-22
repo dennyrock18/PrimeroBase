@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Editar</h3>
+                <h3 class="page-header">Editar admin</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-lg-6">
-                                    {!! Form::model($user,['route' => ['admin.administrator.update', $user], 'method' => 'PUT']) !!}
+                                    {!! Form::model($user,['route' => ['admin.admin.update', $user], 'method' => 'PUT']) !!}
                                     <div class="form-group">
                                         {!! Field::text('fullname',['label' => 'Full name','required','class'=> 'form-control', 'placeholder' => 'Please, write the full name']) !!}
                                     </div>
@@ -33,11 +33,11 @@
                                         {!! Field::email('email',['label' => 'Email-Address','required','class'=> 'form-control', 'placeholder' => 'Please, write the email']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::select('state',$states , ['empty'=>'Seleccione...','label' => 'Estado','id' => 'state','class' => 'form-control']) !!}
+                                        {!! Field::select('state',state(),$user->stateid, ['empty'=>'Seleccione...','label' => 'Estado','id' => 'state','class' => 'form-control']) !!}
 
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::text('postCode',['label' => 'Post Code','required','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
+                                        {!! Field::text('postCode',['label' => 'Post Code','required','pattern'=>'^\d{5}$','maxlength'=>'5','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password',['class'=> 'form-control']) !!}
@@ -51,16 +51,17 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         {!! Field::text('id_user',['label' => 'Number Id','required','class'=> 'form-control', 'placeholder' => 'Please, write the number id']) !!}
+                                        {{--{!! Field::hidden('role', 'admin',['label'=> 'Role','class' => 'form-control']) !!}--}}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::text('streetAddress',['label' => 'Street Address','required','class'=> 'form-control', 'placeholder' => 'Please, write the street address']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Field::tel('phone',['label' => 'Phone','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
+                                        {!! Field::tel('phone',['label' => 'Phone Number [format: (xxx)-xxx-xxxx]:','pattern'=>'^\(\d{3}\)-\d{3}-\d{4}$','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::select('city_id',null ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
+                                        {!! Field::select('city_id',city($user->stateid) ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password_confirmation',['label' => 'Password Confirmation','class'=> 'form-control']) !!}

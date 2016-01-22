@@ -23,6 +23,7 @@ class CreateEquiposTable extends Migration
 
             $table->integer('tipo_equipos_id')->unsigned()->nullable();
             $table->foreign('tipo_equipos_id')->references('id')->on('tipo_equipos');
+            $table->string('terminado',1);
 
             $table->timestamps();
         });

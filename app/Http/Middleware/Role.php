@@ -9,9 +9,10 @@ class Role
 {
 
     protected $hierarchy = [
-        'admin' => 3,
-        'edit'  => 2,
-        'user'  => 1
+        'admin'  => 4,
+        'chofer' => 3,
+        'edit'   => 2,
+        'user'   => 1,
     ];
     /**
      * Handle an incoming request.
@@ -24,8 +25,13 @@ class Role
     {
         $user = currentUser();
 
+        //dd($this->hierarchy[$role],$role);
+
         if($this->hierarchy[$user->role]< $this->hierarchy[$role])
         {
+            if($user->role == 'chofer')
+                abort(401);
+
            auth()->logout();
             Alert::danger('El usuario no puede acceder a la aplicacion');
             return redirect('/');

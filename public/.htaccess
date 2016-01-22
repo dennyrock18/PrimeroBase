@@ -5,6 +5,16 @@
 
     RewriteEngine On
 
+    #con esta opcion se protege que no se pueda nevegar a traves de la web por los directorios
+    Options All -Indexes
+
+    #deny all access
+    # deny from all
+
+    #Permitir el acceso a una ip determinada o a varias ip agregandole /24
+     #deny from all
+       #allow from 127.0.0.1
+
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]

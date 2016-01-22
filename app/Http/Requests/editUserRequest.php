@@ -29,11 +29,11 @@ class editUserRequest extends Request
             'id_user' => 'required|min:13|max:13|unique:users,id_user,'. $this->route()->parameter('user'),
             'email'    => 'required|unique:users,email,'. $this->route()->parameter('user'),
             'password' => 'confirmed|min:6',
-            'phone' => 'required|min:14|max:14|unique:users,phone,'. $this->route()->parameter('user'),
+            'phone' => 'required|min:14|phone_number|max:14|unique:users,phone,'. $this->route()->parameter('user'),
             'streetAddress' => 'required|max:30',
             'secundaryAddress' => 'max:30',
-            'postCode' => 'required|max:10',
-            'role' => 'required|in:edit,user'
+            'postCode' => 'required|max:5|post_code_v',
+            //'role' => 'required|in:user',
 
 
         ];

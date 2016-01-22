@@ -10,7 +10,9 @@
         "styde/html": "~1.0",
         "genealabs/phpgmaps": "~0.3.0",
         "d3catalyst/l4-geoip": "dev-master",
-        "mitulgolakiya/laravel-api-generator": "1.3.*"
+        "mitulgolakiya/laravel-api-generator": "1.3.*",
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "nesbot/carbon": "^1.21"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

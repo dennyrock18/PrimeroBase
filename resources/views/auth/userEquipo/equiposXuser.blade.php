@@ -16,7 +16,7 @@
                     <div class="panel-heading ">
                         <a href="{{route('foraddequipouser', $user->id)}}"><img
                                     src="{{asset('imag/equipo.png')}}"
-                                    title="Agregar un equipo"></a> <a href="#"><img
+                                    title="Agregar un equipo"></a> <a href="{{route('pfduserequipos',$user->id)}}" target="_blank"><img
                                     title="Informe en pdf"
                                     src="{{asset('imag/pdf.png')}}"></a>
                     </div>
@@ -41,10 +41,25 @@
                                         <td>{{$equipo->s_n}}</td>
                                         <td>{{$equipo->model}}</td>
                                         <td>{{$equipo->type->tipoequipo}}</td>
-                                        <td class="col-lg-2"><center><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
-                                                        src="{{asset('imag/Edit.png')}}" title="Editar a {{$equipo->s_n}}"></a> || <a
-                                                    href="#" class="btn-delete"><img title="Eliminar a {{$equipo->s_n}}"
-                                                                                     src="{{asset('imag/delete.png')}}"></a></center></td>
+                                        <td class="col-lg-2">
+                                            <center><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
+                                                            src="{{asset('imag/Edit.png')}}"
+                                                            title="Editar a {{$equipo->s_n}}"></a> || <a
+                                                        href="#" class="btn-delete"><img
+                                                            title="Eliminar a {{$equipo->s_n}}"
+                                                            src="{{asset('imag/delete.png')}}"></a>||
+                                                @if($equipo->terminado != 0)
+                                                    <a href="#"><img src="{{asset('imag/forudaa.png')}}"
+                                                                     title="Terminado"></a>
+                                                @else
+
+                                                    <a
+                                                            href="{{route('terminar',$equipo->id)}}"><img
+                                                                title="Faltan equipos por arreglarce"
+                                                                src="{{asset('imag/noterminado.png')}}"></a>
+                                            </center>
+                                        </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -78,7 +93,7 @@
 
     <script>
         $(document).ready(function () {
-            $(document).on('click', '.btn-delete',function (e) {
+            $(document).on('click', '.btn-delete', function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');

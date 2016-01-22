@@ -6,7 +6,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{route('welcomeAdmin')}}">Administrator</a>
+        <a class="navbar-brand" href="{{route('welcomeAdmin')}}">admin</a>
     </div>
     <!-- /.navbar-header -->
 
@@ -215,7 +215,8 @@
                 <i class="fa fa-user fa-fw"></i> {{currentUser()->fullname}} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i> User
+                        Profile</a>
                 </li>
                 <li><a href="{{route('changePassword')}}"><i class="fa fa-key fa-fw"></i> Change Password</a>
                 </li>
@@ -231,32 +232,63 @@
 
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
+
             <ul class="nav" id="side-menu">
 
                 <li>
                     <a href="{{route('welcomeAdmin')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
+                @if(currentUser()->role == 'admin')
                 <li>
-                    <a href="#"><i class="fa fa-wrench fa-fw"></i> Administrar <span class="fa arrow"></span></a>
+                    @if(currentUser()->role!='chofer')
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Sistema<span class="fa arrow"></span></a>
+                    @endif
+
                     <ul class="nav nav-second-level">
-                        <li>
-                            <a href="{{route('admin.administrator.index')}}"><i class="fa fa-key fa-fw"></i> Adminis del Sistema</a>
-                        </li>
+                        @if(currentUser()->email== 'admin@demo.com')
+                            <li>
+                                <a href="{{route('admin.admin.index')}}"><i class="fa fa-key fa-fw"></i> Adminis
+                                    del Sistema</a>
+                            </li>
+                        @endif
+                            <li>
+                                <a href="{{route('admin.tipoequipo.index')}}"><i class="fa fa-list-ul fa-fw"></i> Tipos
+                                    de
+                                    Equi1pos</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.chofer.index')}}"><i class="fa fa-automobile fa-fw"></i> Chofer</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.list.reporte.pdf.index')}}"><i
+                                            class="fa fa-file-pdf-o fa-fw"></i>
+                                    Report Sistem</a>
+                            </li>
+
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-list-ol fa-fw"></i> Funcionalidades <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
                         <li>
                             <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> Usuarios</a>
                         </li>
                         <li>
-                            <a href="{{route('admin.add.user.equipos.index')}}"><i class="fa fa-laptop fa-fw"></i> Equipos</a>
-                        </li>
-                        <li>
-                            <a href="{{route('admin.tipoequipo.index')}}"><i class="fa fa-list-ul fa-fw"></i> Tipos de Equipos</a>
+                            <a href="{{route('admin.add.user.equipos.index')}}"><i class="fa fa-laptop fa-fw"></i>
+                                Asignar Equipos</a>
                         </li>
 
                     </ul>
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
-                    <a href="{{route('admin.equipo.index')}}"><i class="fa fa-table fa-fw"></i> Equipos en el Sistema</a>
+                    <a href="{{route('admin.equipo.index')}}"><i class="fa fa-table fa-fw"></i> Equipos en el
+                        Sistema</a>
+                </li>
+                @endif
+                <li>
+                    <a href="{{route('delivery.index')}}"><i class="fa fa-truck fa-fw"></i> Delivery</a>
                 </li>
 
             </ul>

@@ -47,7 +47,7 @@
                                                     <a href="{{route('admin.add.user.equipos.edit', $user->id)}}"><img
                                                                 src="{{asset('imag/Edit.png')}}"
                                                                 title="Equipos de {{$user->fullname}}"></a> || <a
-                                                            href="#" class="btn-delete"><img
+                                                            href="{{route('pfduserequipos',$user->id)}}" target="_blank"><img
                                                                 title="Informe de los equipos de {{$user->fullname}}"
                                                                 src="{{asset('imag/pdf.png')}}"></a>
 

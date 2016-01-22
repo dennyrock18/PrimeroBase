@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Dashboard</h1>
+                <h1 class="page-header">Informacion</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -16,11 +16,11 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-comments fa-5x"></i>
+                                <i class="fa fa-key fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">26</div>
-                                <div>New Comments!</div>
+                                <div class="huge">{{count($admins)-1}}</div>
+                                <div>Administrators!</div>
                             </div>
                         </div>
                     </div>
@@ -38,11 +38,11 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-tasks fa-5x"></i>
+                                <i class="fa fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">12</div>
-                                <div>New Tasks!</div>
+                                <div class="huge">{{count($users)}}</div>
+                                <div>Usuarios!</div>
                             </div>
                         </div>
                     </div>
@@ -60,11 +60,11 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-shopping-cart fa-5x"></i>
+                                <i class="fa fa-car fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">124</div>
-                                <div>New Orders!</div>
+                                <div class="huge">{{count($chofer)}}</div>
+                                <div>Chofer!</div>
                             </div>
                         </div>
                     </div>
@@ -82,11 +82,11 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-xs-3">
-                                <i class="fa fa-support fa-5x"></i>
+                                <i class="fa fa-laptop fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">13</div>
-                                <div>Support Tickets!</div>
+                                <div class="huge">{{count($equipos)}}</div>
+                                <div>Equipos!</div>
                             </div>
                         </div>
                     </div>

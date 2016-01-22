@@ -75,6 +75,8 @@ return [
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
     'url'                  => 'The :attribute format is invalid.',
+    'phone_number'         => 'The :attribute format is invalid.',
+    'post_code_v'          => 'The :attribute format is invalid.',
 
     /*
     |--------------------------------------------------------------------------
@@ -104,6 +106,9 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+
+        's_n' => 'Numero de Serie',
+    ],
 
 ];

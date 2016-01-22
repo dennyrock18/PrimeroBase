@@ -48,7 +48,7 @@
                                         </select>--}}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::text('postCode',['label' => 'Post Code','required','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
+                                        {!! Field::text('postCode',['label' => 'Post Code','required','pattern'=>'^\d{5}$','maxlength'=>'10','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password',['class'=> 'form-control','required', 'placeholder' => 'Please, write the password']) !!}
@@ -68,16 +68,14 @@
                                     <div class="form-group">
                                         {!! Field::text('streetAddress',['label' => 'Street Address','required','class'=> 'form-control', 'placeholder' => 'Please, write the street address']) !!}
                                     </div>
-
                                     <div class="form-group">
-                                        {!! Field::tel('phone',['label' => 'Phone','pattern'=>'[0-9]{9}','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
+                                        {!! Field::tel('phone',['label' => 'Phone Number [format: (xxx)-xxx-xxxx]:','pattern'=>'^\(\d{3}\)-\d{3}-\d{4}$','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::select('city_id',null ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
                                     </div>
-
-                                   <!-- <div class="form-group">
-                                        {{--{!! Field::select('city_id',null ,['empty' => 'Debe seleccionar primero el estado','required','label' => 'Ciudad','id' => 'city','class' => 'form-control']) !!} --}}
+                                    <!-- <div class="form-group">
+                                        {{--{!! Field::select('city_id',null ,['empty' => 'Debe seleccionar primero el estado','required','label' => 'Ciudad','id' => 'city','class' => 'form-control']) !!}--}}
                                         <label >
                                             Ciudad
                                         </label>
@@ -87,7 +85,9 @@
 
                                     </div>-->
                                     <div class="form-group">
-                                        {!! Field::select('role', trans('role.types'),['empty' => 'Seleccione...','class' => 'form-control','required']) !!}
+                                        {!! Field::text('role', 'User',['label'=> 'Role','class' => 'form-control','disabled'=>'enable']) !!}
+                                        {{--{!! Field::hidden('role', 'user',['label'=> 'Role','class' => 'form-control']) !!}
+                                        {{--{!! Field::select('role', trans('role.types'),['empty' => 'User','id'=>'disabledSelect','class' => 'form-control','required','disabled'=>'enable']) !!}--}}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password_confirmation',['label' => 'Password Confirmation','class'=> 'form-control', 'placeholder' => 'Please, write the password confirmatio']) !!}

@@ -33,5 +33,8 @@ class Kernel extends HttpKernel
         'role'  => \App\Http\Middleware\Role::class,
         'RegisterConfirm' => \App\Http\Middleware\RegisterConfirm::class,
         'noLogin' => \App\Http\Middleware\noLogin::class,
+        'dependeLlamada' => \App\Http\Middleware\dependeLlamada::class,
+        'dependedetalleAdmin' => \App\Http\Middleware\dependeDetalleAdmin::class,
+        'delivery' => \App\Http\Middleware\delivery::class,
     ];
 }

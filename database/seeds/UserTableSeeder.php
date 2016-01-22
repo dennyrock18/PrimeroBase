@@ -14,7 +14,7 @@ class UserTableSeeder extends BaseSeeder
      */
     public function run()
     {
-        $this->createAdmin();
+        //$this->createAdmin();
         $this->createMultiple(9);
     }
 
@@ -57,7 +57,7 @@ class UserTableSeeder extends BaseSeeder
             'secundaryAddress' => $faker->streetAddress,
 
             'postCode' => $faker->postcode,
-            'role' => 'user',//$faker->randomElement(['user','edit']),
+            'role' => 'chofer',//$faker->randomElement(['user','edit']),
             'terminado'=>'1',
 
 

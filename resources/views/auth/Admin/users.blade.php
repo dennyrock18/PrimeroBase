@@ -43,7 +43,9 @@
                                                 <td>{{$user->id_user}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <td><a href="{{route('detailsUser', $user->id)}}"><img
+                                                <div class="center">
+
+                                                <td><p class="text-center"><a href="{{route('detailsUser', $user->id)}}"><img
                                                                 src="{{asset('imag/Edit.png')}}"
                                                                 title="Detalle de {{$user->fullname}}"></a> || <a
                                                             href="{{route('admin.user.edit', $user->id)}}"><img
@@ -51,24 +53,26 @@
                                                                 title="Editar a {{$user->fullname}}"></a> || <a
                                                             href="#" class="btn-delete"><img
                                                                 title="Eliminar {{$user->fullname}}"
-                                                                src="{{asset('imag/delete.png')}}"></a> ||
-                                                    @if($user->terminado != 0)
-                                                        <a href="#"><img src="{{asset('imag/forudaa.png')}}"
-                                                                         title="Terminado"></a>
-                                                    @else
+                                                                src="{{asset('imag/delete.png')}}"></a>
 
-                                                        <a
-                                                                href="{{route('terminar',$user->id)}}"><img
-                                                                    title="No se ha visto"
-                                                                    src="{{asset('imag/noterminado.png')}}"></a></td>
+                                                    @if($user->terminado != 0 && $user->fecha_entrega == null)
+                                                            <!-- Button trigger modal -->
+                                                    || <button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal{{$user->id}}"><i data-toggle="tooltip" data-placement="top" title="Calendario" class="fa fa-calendar"></i></button>
+                                                        {!! Form::open(['route' => ['fechaEntrega',$user], 'method' => 'PUT']) !!}
+                                                            @include('auth.Admin.partials.modalUser')
+                                                        {!! Form::close()!!}
+                                                    </p></td>
+                                                </div>
                                                 @endif
 
                                             </tr>
                                         @endif
                                     @endif
                                 @endforeach
+
                                 </tbody>
                             </table>
+
                             {!! Form::open(['route' => ['admin.user.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
 
                             {!! Form::close() !!}
@@ -94,12 +98,13 @@
             $('#dataTables-example').DataTable({
                 responsive: true
             });
+            @include('partials.datepicker')
         });
     </script>
 
     <script>
         $(document).ready(function () {
-            $(document).on('click', '.btn-delete',function (e) {
+            $(document).on('click', '.btn-delete', function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');
@@ -109,8 +114,7 @@
                 var data = form.serialize();
 
 
-                if (confirm("Realmente decea eliminar este registro ?"))
-                {
+                if (confirm("Realmente decea eliminar este registro ?")) {
                     $.post(url, data, function (result) {
                         alert(result.message);
                         row.fadeOut();

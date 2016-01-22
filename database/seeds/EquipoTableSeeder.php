@@ -27,6 +27,7 @@ class EquipoTableSeeder extends BaseSeeder
             'model' => $faker->randomElement(['PC-', 'Lap-']) .$faker-> swiftBicNumber,
 
             'user_id' => $this->getRandom('User')->id,
+            'terminado' => 0,
             'tipo_equipos_id' =>  $faker->randomElement(['1', '2'])
             ];
     }

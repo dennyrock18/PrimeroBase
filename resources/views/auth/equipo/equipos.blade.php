@@ -14,7 +14,7 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading ">
-                        <a href="#"><img
+                        <a href="{{route('pfdequipos')}}" target="_blank"><img
                                     title="Informe en pdf"
                                     src="{{asset('imag/pdf.png')}}"></a>
                     </div>
@@ -49,8 +49,20 @@
                                                                     title="Editar a {{$equipo->s_n}}"></a> || <a
                                                                 href="#" class="btn-delete"><img
                                                                     title="Eliminar a {{$equipo->s_n}}"
-                                                                    src="{{asset('imag/delete.png')}}"></a></center>
+                                                                    src="{{asset('imag/delete.png')}}"></a>
+                                                        ||
+                                                        @if($equipo->terminado != 0)
+                                                            <a href="#"><img src="{{asset('imag/forudaa.png')}}"
+                                                                             title="Terminado"></a>
+                                                        @else
+
+                                                            <a
+                                                                    href="{{route('terminar',$equipo->id)}}"><img
+                                                                        title="Faltan equipos por arreglarce"
+                                                                        src="{{asset('imag/noterminado.png')}}"></a>
+                                                    </center>
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endif
                                     @endif
@@ -86,7 +98,7 @@
 
     <script>
         $(document).ready(function () {
-            $(document).on('click', '.btn-delete',function (e) {
+            $(document).on('click', '.btn-delete', function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');

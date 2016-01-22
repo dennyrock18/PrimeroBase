@@ -144,6 +144,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ValidatorServiceProvider::class,
 
         /*
          * Aplications Service Providers External
@@ -151,6 +152,7 @@ return [
         Styde\Html\HtmlServiceProvider::class,
         GeneaLabs\Phpgmaps\PhpgmapsServiceProvider::class,
         D3Catalyst\GeoIP\Laravel4\ServiceProviders\GeoIPServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
 
     ],
@@ -205,6 +207,7 @@ return [
         'Access' => \App\AccessHandler::class,
         //Alias External
         'GeoIP' => D3Catalyst\GeoIP\Laravel4\Facades\GeoIP::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
 
 

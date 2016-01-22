@@ -44,7 +44,6 @@ class AdminUserController extends Controller
      */
     public function store(AddUserAdminRequest $request)
     {
-        //dd($request->all());
         if (!is_numeric($request->get('city_id'))) {
             Alert::message('Debe seleccionar un estado y su ciudad', 'danger');
             return redirect()->back();
@@ -77,9 +76,9 @@ class AdminUserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $states = state();
+        if(is_null($user)) abort(404);
 
-        return view('auth.AdminSistem.editUser', compact('user','states'));
+        return view('auth.AdminSistem.editUser', compact('user'));
     }
 
     /**
@@ -94,6 +93,7 @@ class AdminUserController extends Controller
         //dd($request);
 
         $user = User::find($id);
+        if(is_null($user)) abort(404);
         $user->fill($request->all());
         $user->save();
 
@@ -112,6 +112,7 @@ class AdminUserController extends Controller
     public function destroy($id, Request $request)
     {
         $user = User::find($id);
+        if(is_null($user)) abort(404);
         $user->delete();
         $message = 'El administrador: ' . $user->fullname . ' fue eliminado de nuestro registro';
         if($request->ajax())
@@ -129,6 +130,7 @@ class AdminUserController extends Controller
     public function detailsUser($id)
     {
         $users = User::Find($id);
+        if(is_null($users)) abort(404);
         $marker = details($id);
 
         return view('auth/AdminSistem/detailsUser', compact('users','marker'));

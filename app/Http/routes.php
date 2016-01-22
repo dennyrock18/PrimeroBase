@@ -14,6 +14,8 @@
 
 // Authentication routes...
 use App\citys;
+use App\User;
+use Styde\Html\Facades\Alert;
 
 Route::get('/', [
     'as' => 'login',
@@ -51,7 +53,7 @@ Route::get('logaut', [
 //Pantalla de inicio Admin
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin', 'namespace' => 'Admin'], function () {
+    Route::group(['middleware' => 'role:chofer,admin', 'namespace' => 'Admin'], function () {
 
         Route::get('welcome', [
 
@@ -59,17 +61,46 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'AdminController@setting'
         ]);
 
-        Route::get('details/{id}/user', [
+        //delivery
+        Route::resource('delivery', 'DeliveriController');
 
-            'as' => 'detailsUser',
-            'uses' => 'AdminController@detailsUser'
-        ]);
+        Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
+        Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);
 
-        Route::get('administrator/details/{id}/user', [
 
-            'as' => 'detailsUserAdmin',
-            'uses' => 'AdminUserController@detailsUser'
-        ]);
+        Route::group(['middleware' => 'delivery'], function () {
+
+            Route::get('mapa/{user}/user', [
+
+                'as' => 'mapa',
+                'uses' => 'DeliveriController@mapa'
+            ]);
+
+            Route::put('delivery/fecha-entrega/{user}', [
+
+                'as' => 'fechaEntregaDelivery',
+                'uses' => 'DeliveriController@fechaEntregaDelivery'
+            ]);
+        });
+
+        Route::get('cancelar/delivery', function () {
+            $id = Input::get('id_user');
+
+            //dd($id);
+
+            $user = User::Find($id);
+            $user->fecha_entrega = null;
+            $user->save();
+
+            $users = User::where('fecha_entrega','<>', 'null')->paginate(2);
+
+            //Alert::message('Se ha eliminado el Usuario: ' . $user->fullname . ' del listado de deliveris', 'success');
+            return redirect()->route('delivery.index');
+        });
+
+    });
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin', 'namespace' => 'Admin'], function () {
 
         Route::get('add/{id}/equipo', [
 
@@ -83,20 +114,87 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
 
         Route::resource('add/user/equipos', 'UserEquipoController');
-        Route::resource('user', 'AdminController');
+
+        //Restriccion a traves del navegador********************************
+        Route::group(['middleware' => 'dependeLlamada:user'], function () {
+
+            Route::get('user/details/{user}/user', [
+
+                'as' => 'detailsUser',
+                'uses' => 'AdminController@detailsUser'
+            ]);
+
+            Route::put('user/fecha-entrega/{user}', [
+
+                'as' => 'fechaEntrega',
+                'uses' => 'AdminController@fechaEntrega'
+            ]);
+
+            Route::resource('user', 'AdminController');
+        });
+        //***********************************************************************
+
         Route::resource('tipoequipo', 'tipoEquipoController');
         Route::resource('equipo', 'equipoController');
-        Route::resource('administrator', 'AdminUserController');
 
 
-        Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
-        Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);
+        //Restriccion a traves del navegador********************************
+        /* Route::group(['middleware' => 'dependedetalleAdmin:admin'], function () {
 
-        Route::get('terminado/{id}', ['as' => 'terminar', 'uses' => 'AdminController@terminar']);
+         });*/
+
+
+        Route::group(['middleware' => ['dependedetalleAdmin:admin', 'dependeLlamada:admin']], function () {
+
+            Route::get('admin/details/{admin}/user', [
+
+                'as' => 'detailsUserAdmin',
+                'uses' => 'AdminUserController@detailsUser'
+            ]);
+
+            Route::resource('admin', 'AdminUserController');
+        });
+
+
+        Route::group(['middleware' => 'dependeLlamada:chofer'], function () {
+
+            Route::get('chofer/details/{chofer}/user', [
+
+                'as' => 'detailsUserChofer',
+                'uses' => 'ChoferController@detailsChofer'
+            ]);
+
+            Route::resource('chofer', 'ChoferController');
+        });
+        //***********************************************************************
+
+
+        Route::resource('list/reporte/pdf', 'PdfController');
+
+        /* Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
+         Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);*/
+
+
+        Route::get('equipo/{id}/terminado', ['as' => 'terminar', 'uses' => 'equipoController@terminar']);
+
+        Route::get('equipos/pdf', [
+            'as' => 'pfdequipos',
+            'uses' => 'equipoController@invoice'
+        ]);
+
+        Route::get('equipos/user/{id}/pdf', [
+            'as' => 'pfduserequipos',
+            'uses' => 'UserEquipoController@invoice'
+        ]);
+
+        Route::get('download/{archivo}', [
+            'as' => 'downloadPdf',
+            'uses' => 'PdfController@download'
+        ]);
 
         Route::get('city', function () {
             $id = Input::get('state_id');
-            $city = citys::where('state_id','=',$id)
+            $city = citys::where('state_id', '=', $id)
                 ->get()
                 ->toArray();
 
@@ -105,8 +203,10 @@ Route::group(['middleware' => 'auth'], function () {
             return Response::json($city);
         });
 
+
     });
 });
+
 
 //Email de confirmacion de registro
 Route::group(['middleware' => 'RegisterConfirm'], function () {

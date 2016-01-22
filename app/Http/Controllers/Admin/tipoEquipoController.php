@@ -73,6 +73,7 @@ class tipoEquipoController extends Controller
     public function edit($id)
     {
         $tipoequipo = tipoEquipo::find($id);
+        if(is_null($tipoequipo)) abort(404);
 
         return view('auth.crudtipoequipo.editEquipo', compact('tipoequipo'));
     }
@@ -92,6 +93,7 @@ class tipoEquipoController extends Controller
         ]);
 
         $tipoEquipo = tipoEquipo::find($id);
+        if(is_null($tipoEquipo)) abort(404);
         $tipoEquipo->fill($request->all());
         $tipoEquipo->save();
 
@@ -110,6 +112,7 @@ class tipoEquipoController extends Controller
     public function destroy($id, Request $request)
     {
         $tipoequipo= tipoEquipo::find($id);
+        if(is_null($tipoequipo)) abort(404);
         $tipoequipo->delete();
         $message = 'El tipo de equipo: ' . $tipoequipo->tipoequipo . ' fue eliminado de nuestro registro';
         if($request->ajax())

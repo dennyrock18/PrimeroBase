@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Equipo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\editUserRequest;
 use App\User;
-use DOMDocument;
-use GeneaLabs\Phpgmaps\Phpgmaps;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -18,26 +18,19 @@ class AdminController extends Controller
 {
     public function setting()
     {
-        return view('auth/Admin/index');
-    }
+        $chofer = User::where('role','chofer')->get();
+        $admins = User::where('role','admin')->get();
+        $users = User::where('role','user')->get();
+        $equipos = Equipo::get();
 
-    public function terminar($id)
-    {
-        $users = User::Find($id);
-        Mail::send('emails/confirm', compact('users'), function ($m) use ($users) {
-            $m->to($users->email, $users->name)->subject('Su equipo esta Listo!!!!');
-        });
-
-        $users->terminado = 1;
-        $users->save();
-        Alert::message('Se le ha enviado un correo al Usuario: ' . $users->fullname, 'success');
-        return redirect()->route('admin.user.index');
-
+        return view('auth/Admin/index', compact('chofer', 'admins', 'users','equipos'));
     }
 
     public function detailsUser($id)
     {
         $users = User::Find($id);
+        //if(is_null($users)|| $users->role == 'admin') abort(404);
+
         $marker = details($id);
 
         return view('auth/Admin/detailsUser', compact('users', 'marker'));
@@ -51,7 +44,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::where('role', 'user')->whereNull('fecha_entrega')->get();
         return view('auth/Admin/users', compact('users'));
     }
 
@@ -80,9 +73,14 @@ class AdminController extends Controller
             Alert::message('Debe seleccionar un estado y su ciudad', 'danger');
             return redirect()->back();
         }
+
+
         $user = new User($request->all());
-        $user->role = $request->get('role');
+        $user->role = 'user';
         $user->registration_token = str_random(40);
+        $user->terminado = 0;
+        $user->fecha_entrega = null;
+        $user->activo = 1;
         $user->save();
 
         $url = route('confirmation', ['token' => $user->registration_token]);
@@ -116,9 +114,9 @@ class AdminController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $states = state();
+        //if(is_null($user)|| $user->role == 'admin') abort(404);
 
-        return view('auth.Admin.editUser', compact('user','states'));
+        return view('auth.Admin.editUser', compact('user'));
     }
 
     /**
@@ -131,6 +129,7 @@ class AdminController extends Controller
     public function update(editUserRequest $request, $id)
     {
         $user = User::find($id);
+        //if(is_null($user)|| $user->role == 'admin') abort(404);
         $user->role = $request->get('role');
         $user->fill($request->all());
         $user->save();
@@ -148,10 +147,10 @@ class AdminController extends Controller
     public function destroy($id, Request $request)
     {
         $user = User::find($id);
+        //if(is_null($user)|| $user->role == 'admin') abort(404);
         $user->delete();
         $message = 'El usuario: ' . $user->fullname . ' fue eliminado de nuestro registro';
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             return response()->json([
                 'id' => $user->id,
                 'message' => $message
@@ -160,6 +159,20 @@ class AdminController extends Controller
 
         Session::flash('message', $message);
         return redirect()->route('admin.users.index');
+    }
+
+    public function fechaEntrega($id, Request $request)
+    {
+        $fecha = $request->get('fecha' . $id);
+
+        //Verifico si la fecha existe
+        if (!isTrueFecha($id,$fecha)) {
+            Alert::message('The date is incorrect', 'danger');
+            return redirect()->back();
+        }
+
+        Alert::message('El user paso para el listado de delivery', 'success');
+        return redirect()->back();
     }
 
     protected function getConfirmation($token)

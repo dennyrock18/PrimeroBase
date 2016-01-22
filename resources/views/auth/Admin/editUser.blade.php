@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Editar</h3>
+                <h3 class="page-header">Editar User</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -36,19 +36,10 @@
                                         {!! Field::text('secundaryAddress',['label' => 'Secundary Address','class'=> 'form-control', 'placeholder' => 'Please, write the secundary address']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::select('state',$states , ['empty'=>'Seleccione...','label' => 'Estado','id' => 'state','class' => 'form-control']) !!}
-                                        {{--<label>
-                                            Estado
-                                        </label>
-                                        <select id="state" class="form-control" name="state">
-                                            <option>Seleccione un Estado</option>
-                                            @foreach($states as $state)
-                                                <option value="{{$state->id}}">{{$state->state}}</option>
-                                            @endforeach
-                                        </select>--}}
+                                        {!! Field::select('state',state(),$user->stateid, ['empty'=>'Seleccione...','label' => 'Estado','id' => 'state','class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::text('postCode',['label' => 'Post Code','required','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
+                                        {!! Field::text('postCode',['label' => 'Post Code','pattern'=>'^\d{5}$','maxlength'=>'5','required','class'=> 'form-control', 'placeholder' => 'Please, write the post code']) !!}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password',['class'=> 'form-control']) !!}
@@ -68,14 +59,16 @@
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Field::tel('phone',['label' => 'Phone','pattern'=>'[0-9]{9}','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
+                                        {!! Field::tel('phone',['label' => 'Phone Number [format: (xxx)-xxx-xxxx]:','pattern'=>'^\(\d{3}\)-\d{3}-\d{4}$','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
                                     </div>
 
                                     <div class="form-group">
-                                        {!! Field::select('city_id',null ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
+                                        {!! Field::select('city_id',city($user->stateid) ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::select('role', trans('role.types'),['empty' => 'Seleccione...','class' => 'form-control','required']) !!}
+                                        {!! Field::text('role', 'User',['label'=> 'Role','class' => 'form-control','disabled'=>'enable']) !!}
+                                        {!! Field::hidden('role', 'user',['label'=> 'Role','class' => 'form-control']) !!}
+                                        {{--{!! Field::select('role', trans('role.types'),['empty' => 'User','id'=>'disabledSelect','class' => 'form-control','required','disabled'=>'enable']) !!}--}}
                                     </div>
                                     <div class="form-group">
                                         {!! Field::password('password_confirmation',['label' => 'Password Confirmation','class'=> 'form-control']) !!}

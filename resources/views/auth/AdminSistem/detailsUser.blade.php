@@ -22,7 +22,7 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                    <p><a href="{{route('admin.administrator.index')}}" class="btn btn-primary"><i
+                    <p><a href="{{route('admin.admin.index')}}" class="btn btn-primary"><i
                                     class="fa fa-hand-o-left fa-fw"></i>Atras</a></p>
                     <div class="row">
                         <!-- Map Column -->
@@ -47,7 +47,7 @@
 
 
                             <p>
-                                <a class="btn btn-outline btn-success" href="{{route('admin.administrator.edit', $users->id)}}">Editar</a>
+                                <a class="btn btn-outline btn-success" href="{{route('admin.admin.edit', $users->id)}}">Editar</a>
                             </p>
 
                         </div>

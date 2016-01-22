@@ -1,13 +1,61 @@
 <?php
 
+use App\citys;
+use App\pdf;
 use App\states;
 use App\User;
+use Carbon\Carbon;
 use GeneaLabs\Phpgmaps\Phpgmaps;
 
 
 function currentUser()
 {
     return auth()->user();
+}
+
+
+function cambiarFecha($fecha)
+{
+    $resultado = explode('-',$fecha);
+
+    return $resultado[1] . '/' . $resultado[2] . '/' . $resultado[0];
+}
+
+function pdfTable($name)
+{
+    $pdfgenerar = new pdf();
+    $pdfgenerar->name = $name;
+    $pdfgenerar->user_id = auth()->user()->id;
+
+    //dd($pdf);
+    $pdfgenerar->save();
+}
+
+function isTrueFecha($id,$fecha)
+{
+    $user = User::find($id);
+    $resultado = explode('/',$fecha);
+
+    //Verifico si la fecha existe
+    if (!checkdate($resultado[0], $resultado[1], $resultado[2])) {
+        return false;
+    }
+
+    $today = new DateTime();
+    $date = new DateTime($fecha);
+
+    //Verifico si la fecha es mayor que la del dia en que se esta
+    if($date<$today)
+    {
+        return false;
+    }
+
+    //dd($today, $date);
+    $user->fecha_entrega = $date;
+    $user->save();
+
+    return true;
+
 }
 
 function isNotAdmin($role)
@@ -20,12 +68,37 @@ function state()
     return states::lists('state', 'id')->toArray();
 }
 
+function city($value)
+{
+    return citys::where('state_id',$value)->lists('city', 'id')->toArray();
+}
+
+function fecha($value)
+{
+    $date = Carbon::now();
+
+    $date = $value;
+
+    return $date->toFormattedDateString();
+}
+
+function hora($value)
+{
+    $date = Carbon::now();
+
+    $date = $value;
+
+    return $date->toTimeString();
+}
+
  function details($id)
 {
-
     $users = User::Find($id);
+    //dd($users);
     $latitudLongitud = latiLongi($users->Direccion);
     $marker = maps($latitudLongitud);
+
+     //dd($marker);
 
     return $marker;
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Equipo;
+use App\pdf;
 use App\tipoEquipo;
 use App\User;
 use Illuminate\Http\Request;
@@ -13,6 +14,34 @@ use Styde\Html\Facades\Alert;
 class UserEquipoController extends Controller
 {
 
+    public function invoice($id)
+    {
+        $salvar= public_path() . '/storage/';
+
+        $date = date('m-d-Y');
+        $name = 'UE-'.auth()->user()->fullname.'-('.$date.').pdf';
+
+        $user = $this->getData($id);
+        $invoice = "2222";
+        $view =  \View::make('auth.pdf.informeUserEquipos', compact('user', 'date', 'invoice'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+
+        pdfTable($name);
+
+        return $pdf->save($salvar . $name)->stream('informe_User_Equipos('.$date.').pdf');
+
+
+    }
+
+    public function getData( $id)
+    {
+        $user =  User::find($id);
+        if(is_null($user)|| $user->role == 'admin') abort(404);
+
+        return $user;
+    }
+
     public static function tipoEquipo()
     {
         return tipoEquipo::lists('tipoequipo', 'id')->toArray();
@@ -21,6 +50,7 @@ class UserEquipoController extends Controller
     public function getquipouser($id)
     {
         $user = User::find($id);
+        if(is_null($user)|| $user->role == 'admin') abort(404);
         $tipoEquipo = $this->tipoEquipo();
 
         //dd($user);
@@ -32,13 +62,18 @@ class UserEquipoController extends Controller
         $this->validate($request, [
             's_n' => 'required|unique:equipos,s_n',
             'model' => 'required',
-            'tipo_equipos_id' => 'required'
+            'tipo_equipos_id' => 'required|exists:tipo_equipos,id'
         ]);
 
         $user = User::find($id);
+        if(is_null($user)|| $user->role == 'admin') abort(404);
 
         $equipo = new Equipo($request->all());
+        $equipo->terminado = 0;
         $equipo->user_id = $user->id;
+
+        $user->terminado = 0;
+        $user->save();
 
         $equipo->save();
 
@@ -52,8 +87,9 @@ class UserEquipoController extends Controller
      */
     public function index()
     {
+        $users= User::where('role','user')->whereNull('fecha_entrega')
+            ->get();
 
-        $users = User::get();
         return view('auth/userEquipo/usersEquipo', compact('users'));
     }
 
@@ -98,6 +134,7 @@ class UserEquipoController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        if(is_null($user) || $user->role == 'admin') abort(404);
 
         return view ('auth.userEquipo.equiposXuser', compact('user'));
     }

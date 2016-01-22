@@ -20,7 +20,7 @@
                     <div class="panel-body">
                         @include('partials.message')
                         <div class="dataTable_wrapper">
-                            <p><a title="Agregar Usuario" href="{{route('admin.administrator.create')}}" class="btn btn-primary"><i
+                            <p><a title="Agregar Usuario" href="{{route('admin.admin.create')}}" class="btn btn-primary"><i
                                             class="fa fa-plus-circle fa-fw"></i>Agregar Usuario</a></p>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
@@ -45,7 +45,7 @@
                                             <td><a href="{{route('detailsUserAdmin', $user->id)}}"><img
                                                             src="{{asset('imag/Edit.png')}}"
                                                             title="Detalle de {{$user->fullname}}"></a> || <a
-                                                        href="{{route('admin.administrator.edit', $user->id)}}"><img
+                                                        href="{{route('admin.admin.edit', $user->id)}}"><img
                                                             src="{{asset('imag/Edit.png')}}"
                                                             title="Editar a {{$user->fullname}}"></a> || <a
                                                         href="#" class="btn-delete"><img
@@ -57,7 +57,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {!! Form::open(['route' => ['admin.administrator.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
+                            {!! Form::open(['route' => ['admin.admin.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
 
                             {!! Form::close() !!}
                         </div>
