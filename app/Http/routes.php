@@ -11,7 +11,6 @@
 |
 */
 
-
 // Authentication routes...
 use App\citys;
 use App\User;
@@ -50,164 +49,6 @@ Route::get('logaut', [
 
 ]);
 
-//Pantalla de inicio Admin
-Route::group(['middleware' => 'auth'], function () {
-
-    Route::group(['middleware' => 'role:chofer,admin', 'namespace' => 'Admin'], function () {
-
-        Route::get('welcome', [
-
-            'as' => 'welcomeAdmin',
-            'uses' => 'AdminController@setting'
-        ]);
-
-        //delivery
-        Route::resource('delivery', 'DeliveriController');
-
-        Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
-        Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);
-
-
-        Route::group(['middleware' => 'delivery'], function () {
-
-            Route::get('mapa/{user}/user', [
-
-                'as' => 'mapa',
-                'uses' => 'DeliveriController@mapa'
-            ]);
-
-            Route::put('delivery/fecha-entrega/{user}', [
-
-                'as' => 'fechaEntregaDelivery',
-                'uses' => 'DeliveriController@fechaEntregaDelivery'
-            ]);
-        });
-
-        Route::get('cancelar/delivery', function () {
-            $id = Input::get('id_user');
-
-            //dd($id);
-
-            $user = User::Find($id);
-            $user->fecha_entrega = null;
-            $user->save();
-
-            $users = User::where('fecha_entrega','<>', 'null')->paginate(2);
-
-            //Alert::message('Se ha eliminado el Usuario: ' . $user->fullname . ' del listado de deliveris', 'success');
-            return redirect()->route('delivery.index');
-        });
-
-    });
-
-    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin', 'namespace' => 'Admin'], function () {
-
-        Route::get('add/{id}/equipo', [
-
-            'as' => 'foraddequipouser',
-            'uses' => 'UserEquipoController@getquipouser'
-        ]);
-        Route::post('add/{id}/equipo', [
-
-            'as' => 'addequipouser',
-            'uses' => 'UserEquipoController@postquipouser'
-        ]);
-
-        Route::resource('add/user/equipos', 'UserEquipoController');
-
-        //Restriccion a traves del navegador********************************
-        Route::group(['middleware' => 'dependeLlamada:user'], function () {
-
-            Route::get('user/details/{user}/user', [
-
-                'as' => 'detailsUser',
-                'uses' => 'AdminController@detailsUser'
-            ]);
-
-            Route::put('user/fecha-entrega/{user}', [
-
-                'as' => 'fechaEntrega',
-                'uses' => 'AdminController@fechaEntrega'
-            ]);
-
-            Route::resource('user', 'AdminController');
-        });
-        //***********************************************************************
-
-        Route::resource('tipoequipo', 'tipoEquipoController');
-        Route::resource('equipo', 'equipoController');
-
-
-        //Restriccion a traves del navegador********************************
-        /* Route::group(['middleware' => 'dependedetalleAdmin:admin'], function () {
-
-         });*/
-
-
-        Route::group(['middleware' => ['dependedetalleAdmin:admin', 'dependeLlamada:admin']], function () {
-
-            Route::get('admin/details/{admin}/user', [
-
-                'as' => 'detailsUserAdmin',
-                'uses' => 'AdminUserController@detailsUser'
-            ]);
-
-            Route::resource('admin', 'AdminUserController');
-        });
-
-
-        Route::group(['middleware' => 'dependeLlamada:chofer'], function () {
-
-            Route::get('chofer/details/{chofer}/user', [
-
-                'as' => 'detailsUserChofer',
-                'uses' => 'ChoferController@detailsChofer'
-            ]);
-
-            Route::resource('chofer', 'ChoferController');
-        });
-        //***********************************************************************
-
-
-        Route::resource('list/reporte/pdf', 'PdfController');
-
-        /* Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
-         Route::post('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@postPassword']);*/
-
-
-        Route::get('equipo/{id}/terminado', ['as' => 'terminar', 'uses' => 'equipoController@terminar']);
-
-        Route::get('equipos/pdf', [
-            'as' => 'pfdequipos',
-            'uses' => 'equipoController@invoice'
-        ]);
-
-        Route::get('equipos/user/{id}/pdf', [
-            'as' => 'pfduserequipos',
-            'uses' => 'UserEquipoController@invoice'
-        ]);
-
-        Route::get('download/{archivo}', [
-            'as' => 'downloadPdf',
-            'uses' => 'PdfController@download'
-        ]);
-
-        Route::get('city', function () {
-            $id = Input::get('state_id');
-            $city = citys::where('state_id', '=', $id)
-                ->get()
-                ->toArray();
-
-            array_unshift($city, ['id' => '', 'city' => 'Select value']);
-
-            return Response::json($city);
-        });
-
-
-    });
-});
-
-
 //Email de confirmacion de registro
 Route::group(['middleware' => 'RegisterConfirm'], function () {
     Route::get('confirmation/{token}', [
@@ -215,5 +56,31 @@ Route::group(['middleware' => 'RegisterConfirm'], function () {
         'as' => 'confirmation'
     ]);
 });
+
+
+
+//Pantalla de inicio Admin (Aplicacion)
+Route::group(['middleware' => 'auth'], function () {
+
+
+    Route::group(['middleware' => 'role:chofer,admin', 'namespace' => 'Admin'], function () {
+
+        include __DIR__ . '/routes/choferAdminComunRoute.php';
+
+    });
+
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'role:admin', 'namespace' => 'Admin'], function () {
+
+        include __DIR__ . '/routes/equiposRoute.php';
+        include __DIR__ . '/routes/usersRoute.php';
+        include __DIR__ . '/routes/adminRoute.php';
+        include __DIR__ . '/routes/choferRoute.php';
+        include __DIR__ . '/routes/pdfRoute.php';
+
+    });
+});
+
+
 
 

@@ -126,12 +126,10 @@
                 var row = $(this).parents('li');
                 var user_id = row.data('id');
 
-                        //alert(row.get());
-
                 $.get('{{url('/cancelar/delivery')}}',{id_user: user_id}, function (respuesta) {
 
                     row.fadeOut();
-
+                    //$('#timeline').update();
                 });
             });
 

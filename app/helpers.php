@@ -94,7 +94,7 @@ function isTrueFecha($id,$fecha)
     //Verifico si la fecha es mayor que la del dia en que se esta
     if($date < $today)
     {
-        dd($date);
+        //dd($date);
         return false;
     }
 

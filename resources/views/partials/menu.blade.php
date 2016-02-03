@@ -239,7 +239,7 @@
                             <li>
                                 <a href="{{route('admin.tipoequipo.index')}}"><i class="fa fa-list-ul fa-fw"></i> Tipos
                                     de
-                                    Equi1pos</a>
+                                    Equipos</a>
                             </li>
                             <li>
                                 <a href="{{route('admin.chofer.index')}}"><i class="fa fa-automobile fa-fw"></i> Chofer</a>
@@ -274,10 +274,10 @@
                     </li>
                 @endif
                 <li>
-                    <a href="#"><i class="fa fa-truck fa-fw"></i> Delivery</a>
+                    <a href="#"><i class="fa fa-truck fa-fw"></i> Delivery<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{route('delivery.index')}}"><i class="fa fa-users fa-fw"></i> Deliveris a Realizar</a>
+                            <a href="{{route('delivery.index')}}"><i class="fa fa-suitcase fa-fw"></i> Deliveris a Realizar</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-laptop fa-fw"></i>

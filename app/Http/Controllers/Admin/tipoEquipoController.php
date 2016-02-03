@@ -49,7 +49,7 @@ class tipoEquipoController extends Controller
         $tipoEquipo = new tipoEquipo($request->all());
         $tipoEquipo->save();
 
-        Alert::message('Se agrego un nuevo equipo', 'success');
+        Alert::message('Se agrego un nuevo Tipo de equipo', 'success');
         return redirect()->route('admin.tipoequipo.index');
     }
 
