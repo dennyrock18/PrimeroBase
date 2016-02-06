@@ -44,7 +44,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 'user')->whereNull('fecha_entrega')->get();
+        $users = User::where('role', 'user')->whereNull('fecha_entrega')->where('activo', '1')->get();
         return view('auth/Admin/users', compact('users'));
     }
 
@@ -80,7 +80,7 @@ class AdminController extends Controller
         $user->registration_token = str_random(40);
         $user->terminado = 0;
         $user->fecha_entrega = null;
-        $user->activo = 1;
+        $user->activo = 0;
         $user->save();
 
         $url = route('confirmation', ['token' => $user->registration_token]);

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\delivery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
+use DateTime;
 use Illuminate\Http\Request;
+use Styde\Html\Facades\Alert;
 
 class DeliveriController extends Controller
 {
@@ -16,17 +19,33 @@ class DeliveriController extends Controller
      */
     public function index()
     {
-        $users = User::where('fecha_entrega','<>', 'null')->paginate(2);
+        $today = new DateTime();
+
+        $usersAplasados = User::where('fecha_entrega','<', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->get();
+
+        foreach($usersAplasados as $user)
+        {
+            $this->AplazarDelivery($user->id);
+        }
+
+        $users = User::where('fecha_entrega', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->paginate(2);
+
+        //dd($users);
 
         return view('auth.Delivery.delivery', compact('users'));
     }
 
-    public function cancelarDelivery($id)
+    public function AplazarDelivery($id)
     {
         $user = User::Find($id);
-
         $user->fecha_entrega = null;
         $user->save();
+
+    }
+
+    public function cancelarDelivery($id)
+    {
+        $this->AplazarDelivery($id);
 
         return redirect()->route('auth.Delivery.delivery');
     }
@@ -72,7 +91,21 @@ class DeliveriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = User::find($request->get('id'));
+        //dd($user);
+
+        $delivery = new delivery();
+        $delivery->user_id = $user->id;
+        $delivery->chofer_id = currentUser()->id;
+
+        $user->activo = 0;
+        $user->fecha_entrega=null;
+        $user->terminado=0;
+        $user->save();
+        $delivery->save();
+
+        Alert::message('Se ha realizado el delivery para el user: ' . $user->fullname, 'success');
+        return redirect()->route('delivery.index');
     }
 
     /**

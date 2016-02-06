@@ -16,48 +16,33 @@
                 <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-messages">
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
+                @if(count(NoAceptadoCorreo())!=0)
+                    @foreach(NoAceptadoCorreo() as $userNoAcep)
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>{{$userNoAcep->fullname}}</strong>
                                     <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                        <em>{{diasEntreFechas($userNoAcep->created_at)}}</em>
                                     </span>
-                        </div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                    @endforeach
+                @else
+                    <li>
+                        <a href="#">
+                            <div>
+                                <strong>Cuentas Activadas</strong>
                                     <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
+                                        <em>Todas</em>
                                     </span>
-                        </div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <strong>John Smith</strong>
-                                    <span class="pull-right text-muted">
-                                        <em>Yesterday</em>
-                                    </span>
-                        </div>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</div>
-                    </a>
-                </li>
-                <li class="divider"></li>
-                <li>
-                    <a class="text-center" href="#">
-                        <strong>Read All Messages</strong>
-                        <i class="fa fa-angle-right"></i>
-                    </a>
-                </li>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                @endif
             </ul>
             <!-- /.dropdown-messages -->
         </li>
@@ -239,18 +224,18 @@
                     <a href="{{route('welcomeAdmin')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 @if(currentUser()->role == 'admin')
-                <li>
-                    @if(currentUser()->role!='chofer')
-                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Sistema<span class="fa arrow"></span></a>
-                    @endif
-
-                    <ul class="nav nav-second-level">
-                        @if(currentUser()->email== 'admin@demo.com')
-                            <li>
-                                <a href="{{route('admin.admin.index')}}"><i class="fa fa-key fa-fw"></i> Adminis
-                                    del Sistema</a>
-                            </li>
+                    <li>
+                        @if(currentUser()->role!='chofer')
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Sistema<span class="fa arrow"></span></a>
                         @endif
+
+                        <ul class="nav nav-second-level">
+                            @if(currentUser()->email== 'admin@demo.com')
+                                <li>
+                                    <a href="{{route('admin.admin.index')}}"><i class="fa fa-key fa-fw"></i> Adminis
+                                        del Sistema</a>
+                                </li>
+                            @endif
                             <li>
                                 <a href="{{route('admin.tipoequipo.index')}}"><i class="fa fa-list-ul fa-fw"></i> Tipos
                                     de
@@ -265,30 +250,41 @@
                                     Report Sistem</a>
                             </li>
 
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-list-ol fa-fw"></i> Funcionalidades <span
+                                    class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> Usuarios</a>
+                            </li>
+                            <li>
+                                <a href="{{route('admin.add.user.equipos.index')}}"><i class="fa fa-laptop fa-fw"></i>
+                                    Asignar Equipos</a>
+                            </li>
+
+                        </ul>
+                        <!-- /.nav-second-level -->
+                    </li>
+                    <li>
+                        <a href="{{route('admin.equipo.index')}}"><i class="fa fa-table fa-fw"></i> Equipos en el
+                            Sistema</a>
+                    </li>
+                @endif
                 <li>
-                    <a href="#"><i class="fa fa-list-ol fa-fw"></i> Funcionalidades <span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-truck fa-fw"></i> Delivery</a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{route('admin.user.index')}}"><i class="fa fa-users fa-fw"></i> Usuarios</a>
+                            <a href="{{route('delivery.index')}}"><i class="fa fa-users fa-fw"></i> Deliveris a Realizar</a>
                         </li>
                         <li>
-                            <a href="{{route('admin.add.user.equipos.index')}}"><i class="fa fa-laptop fa-fw"></i>
-                                Asignar Equipos</a>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i>
+                                Deliveris Realizados</a>
                         </li>
 
                     </ul>
-                    <!-- /.nav-second-level -->
-                </li>
-                <li>
-                    <a href="{{route('admin.equipo.index')}}"><i class="fa fa-table fa-fw"></i> Equipos en el
-                        Sistema</a>
-                </li>
-                @endif
-                <li>
-                    <a href="{{route('delivery.index')}}"><i class="fa fa-truck fa-fw"></i> Delivery</a>
                 </li>
 
             </ul>

@@ -95,16 +95,19 @@
             <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
         $(document).ready(function () {
-            $('#dataTables-example').DataTable({
+            @include('partials.datepicker')
+
+           $('#dataTables-example').DataTable({
                 responsive: true
             });
-            @include('partials.datepicker')
+
         });
     </script>
 
     <script>
         $(document).ready(function () {
-            $(document).on('click', '.btn-delete', function (e) {
+
+           $(document).on('click', '.btn-delete', function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');

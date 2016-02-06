@@ -14,7 +14,7 @@ class UserTableSeeder extends BaseSeeder
      */
     public function run()
     {
-        //$this->createAdmin();
+        $this->createAdmin();
         $this->createMultiple(9);
     }
 
@@ -28,14 +28,14 @@ class UserTableSeeder extends BaseSeeder
         $this->create([
 
             'fullname' => 'Denny Lopez',
-            'id_user' => '',
+            'id_user' => '1234567891',
             'email' => 'admin@demo.com',
-            'password' => bcrypt('admin123'),
+            'password' => 'admin123',
             'phone' => '(305)-213-2222',
 
-            'streetAddress' => '',
+            'streetAddress' => '605 sw 24 ave',
             'secundaryAddress' => '',
-            //'city_id' => 13,
+            'city_id' => '135',
             'postCode' => '',
             'role' => 'admin',
             'terminado'=>'0',
@@ -50,15 +50,19 @@ class UserTableSeeder extends BaseSeeder
             'fullname' => $faker->name,
             'id_user' => $faker->ean13,
             'email' => $faker->email,
-            'password' => bcrypt('123456'),
+            //se quita la propiedad bcrypt puesto que en el modelo User se esta incriptando ya el password
+            'password' => '123456',//bcrypt('123456'),
             'phone' => $faker->phoneNumber,
 
             'streetAddress' => $faker->streetAddress,
             'secundaryAddress' => $faker->streetAddress,
 
             'postCode' => $faker->postcode,
-            'role' => 'chofer',//$faker->randomElement(['user','edit']),
-            'terminado'=>'1',
+            'role' => $faker->randomElement(['user','chofer']),
+            'terminado'=>'0',
+            'fecha_entrega' => null,
+            'city_id' => '135',
+            'activo'=> '1',
 
 
         ];

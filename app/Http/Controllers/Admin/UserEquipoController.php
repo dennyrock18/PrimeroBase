@@ -87,7 +87,7 @@ class UserEquipoController extends Controller
      */
     public function index()
     {
-        $users= User::where('role','user')->whereNull('fecha_entrega')
+        $users= User::where('role','user')->whereNull('fecha_entrega')->where('activo', '1')
             ->get();
 
         return view('auth/userEquipo/usersEquipo', compact('users'));

@@ -21,6 +21,53 @@ function cambiarFecha($fecha)
     return $resultado[1] . '/' . $resultado[2] . '/' . $resultado[0];
 }
 
+function diasEntreFechas($fecha){
+
+    $fecha_f = new DateTime();
+    $fecha_i = new DateTime($fecha);
+
+    $dias	= (strtotime($fecha_i->format('Y-m-d'))-strtotime($fecha_f->format('Y-m-d')))/86400;
+    $dias 	= abs($dias); $dias = floor($dias);
+
+    if($dias==0)
+        return 'Hoy';
+    if($dias==1)
+        return 'Ayer';
+
+    return 'Hace ' . $dias . ' dias';
+}
+
+function  haceCuantos($fecha)
+{
+
+    $today = new DateTime();
+    $creado = new DateTime($fecha);
+
+    $fechaInicio = explode('-',$creado->format('Y-m-d'));
+    $fechaFinal  = explode('-',$today->format('Y-m-d'));
+    $ini = mktime(0,0,0,$fechaInicio[0], $fechaInicio[1], $fechaInicio[2]);
+    $fin = mktime(0,0,0,$fechaFinal[0],$fechaFinal[1],$fechaFinal[2]);
+    $x = (floor(($fin - $ini)/60/60/24));
+    //dd('Dias entre las fechas dadas: '.$x);
+
+    return 'Dias entre las fechas dadas:'.$x;
+}
+    /*$date = Carbon::yesterday();
+
+    if($date == $fecha)
+        return 'Yesterday';
+    if($date == $fecha)
+        return 'Yesterday';*/
+
+
+
+function NoAceptadoCorreo()
+{
+    $user = User::where('registration_token','<>','null')->where('role','user')->get();
+
+    return $user;
+}
+
 function pdfTable($name)
 {
     $pdfgenerar = new pdf();
@@ -45,8 +92,9 @@ function isTrueFecha($id,$fecha)
     $date = new DateTime($fecha);
 
     //Verifico si la fecha es mayor que la del dia en que se esta
-    if($date<$today)
+    if($date < $today)
     {
+        dd($date);
         return false;
     }
 

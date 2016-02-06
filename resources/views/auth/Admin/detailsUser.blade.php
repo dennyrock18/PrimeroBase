@@ -18,7 +18,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <p>
-                        <abbr title="Direccion">D</abbr>: {{$users->Direccion}}</p>
+                        <i class="fa fa-home"></i> <abbr title="Direccion">D</abbr>: {{$users->Direccion}}</p>
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
@@ -32,23 +32,30 @@
                         </div>
                         <!-- Contact Details Column -->
                         <div class="col-md-4">
-                            <p><i class="fa fa-user"></i>
-                                <abbr title="Rol en el Sistema">R</abbr>: {{$users->role}}</p>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Informacion
+                                </div>
+                                <div class="panel-body">
+                                    <p><i class="fa fa-user"></i>
+                                        <abbr title="Rol en el Sistema">R</abbr>: {{$users->role}}</p>
 
-                            <p><i class="fa fa-key"></i>
-                                <abbr title="ID">ID</abbr>: {{$users->id_user}}</p>
+                                    <p><i class="fa fa-key"></i>
+                                        <abbr title="ID">ID</abbr>: {{$users->id_user}}</p>
 
-                            <p><i class="fa fa-phone"></i>
-                                <abbr title="Phone">P</abbr>: {{$users->phone}}</p>
+                                    <p><i class="fa fa-phone"></i>
+                                        <abbr title="Phone">P</abbr>: {{$users->phone}}</p>
 
-                            <p><i class="fa fa-envelope-o"></i>
-                                <abbr title="Email">E</abbr>: <a href="{{$users->email}}">{{$users->email}}</a>
-                            </p>
+                                    <p><i class="fa fa-envelope-o"></i>
+                                        <abbr title="Email">E</abbr>: <a href="{{$users->email}}">{{$users->email}}</a>
+                                    </p>
+                                </div>
+                                <div class="panel-footer">
 
+                                    <a class="btn btn-outline btn-success" href="{{route('admin.user.edit', $users->id)}}">Editar</a>
 
-                            <p>
-                                <a class="btn btn-outline btn-success" href="{{route('admin.user.edit', $users->id)}}">Editar</a>
-                            </p>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
