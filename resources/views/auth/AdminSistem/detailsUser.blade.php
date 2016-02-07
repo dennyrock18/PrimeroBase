@@ -24,6 +24,7 @@
                 <div class="panel-body">
                     <p><a href="{{route('admin.admin.index')}}" class="btn btn-primary"><i
                                     class="fa fa-hand-o-left fa-fw"></i>Atras</a></p>
+
                     <div class="row">
                         <!-- Map Column -->
                         <div class="col-md-8">
@@ -32,23 +33,29 @@
                         </div>
                         <!-- Contact Details Column -->
                         <div class="col-md-4">
-                            <p><i class="fa fa-user"></i>
-                                <abbr title="Rol en el Sistema">R</abbr>: {{$users->role}}</p>
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    Informacion
+                                </div>
+                                <div class="panel-body">
+                                    <p><i class="fa fa-user"></i>
+                                        <abbr title="Rol en el Sistema">R</abbr>: {{$users->role}}</p>
 
-                            <p><i class="fa fa-key"></i>
-                                <abbr title="ID">ID</abbr>: {{$users->id_user}}</p>
+                                    <p><i class="fa fa-key"></i>
+                                        <abbr title="ID">ID</abbr>: {{$users->id_user}}</p>
 
-                            <p><i class="fa fa-phone"></i>
-                                <abbr title="Phone">P</abbr>: {{$users->phone}}</p>
+                                    <p><i class="fa fa-phone"></i>
+                                        <abbr title="Phone">P</abbr>: {{$users->phone}}</p>
 
-                            <p><i class="fa fa-envelope-o"></i>
-                                <abbr title="Email">E</abbr>: <a href="{{$users->email}}">{{$users->email}}</a>
-                            </p>
-
-
-                            <p>
-                                <a class="btn btn-outline btn-success" href="{{route('admin.admin.edit', $users->id)}}">Editar</a>
-                            </p>
+                                    <p><i class="fa fa-envelope-o"></i>
+                                        <abbr title="Email">E</abbr>: <a href="{{$users->email}}">{{$users->email}}</a>
+                                    </p>
+                                </div>
+                                <div class="panel-footer">
+                                    <a class="btn btn-outline btn-success"
+                                       href="{{route('admin.admin.edit', $users->id)}}">Editar</a>
+                                </div>
+                            </div>
 
                         </div>
                     </div>

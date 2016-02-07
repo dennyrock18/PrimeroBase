@@ -200,9 +200,11 @@
                 <i class="fa fa-user fa-fw"></i> {{currentUser()->fullname}} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-                <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i> User
-                        Profile</a>
-                </li>
+                @if(currentUser()->role == 'admin')
+                    <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i> Admin
+                            Profile</a>
+                    </li>
+                @endif
                 <li><a href="{{route('changePassword')}}"><i class="fa fa-key fa-fw"></i> Change Password</a>
                 </li>
                 <li class="divider"></li>
@@ -234,6 +236,9 @@
                                 <li>
                                     <a href="{{route('admin.admin.index')}}"><i class="fa fa-key fa-fw"></i> Adminis
                                         del Sistema</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('logs')}}" target="_blank"><i class="fa fa-warning fa-fw"></i> Logs del Sistema</a>
                                 </li>
                             @endif
                             <li>
@@ -277,7 +282,8 @@
                     <a href="#"><i class="fa fa-truck fa-fw"></i> Delivery<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="{{route('delivery.index')}}"><i class="fa fa-suitcase fa-fw"></i> Deliveris a Realizar</a>
+                            <a href="{{route('delivery.index')}}"><i class="fa fa-suitcase fa-fw"></i> Deliveris a
+                                Realizar</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-laptop fa-fw"></i>

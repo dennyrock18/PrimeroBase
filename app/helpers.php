@@ -6,6 +6,7 @@ use App\states;
 use App\User;
 use Carbon\Carbon;
 use GeneaLabs\Phpgmaps\Phpgmaps;
+use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
 
 
 function currentUser()
@@ -114,6 +115,18 @@ function isNotAdmin($role)
 function state()
 {
     return states::lists('state', 'id')->toArray();
+}
+
+function codigoBarra($id)
+{
+    $barcode = new BarcodeGenerator();
+    $barcode->setText($id);
+    $barcode->setType(BarcodeGenerator::Code11);
+    $barcode->setScale(2);
+    $barcode->setThickness(25);
+    $code = $barcode->generate();
+
+    return $code;
 }
 
 function city($value)

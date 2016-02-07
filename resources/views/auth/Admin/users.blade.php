@@ -11,7 +11,7 @@
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-14">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Usuarios
@@ -21,7 +21,9 @@
                         @include('partials.message')
                         <div class="dataTable_wrapper">
                             <p><a title="Agregar Usuario" href="{{route('admin.user.create')}}" class="btn btn-primary"><i
-                                            class="fa fa-plus-circle fa-fw"></i>Agregar Usuario</a></p>
+                                            class="fa fa-plus-circle fa-fw"></i>Agregar
+                                    Usuario</a> {!! Form::submit('Eliminar Seleccionados',['class' => 'btn btn-danger', 'id' => 'ButtonEliminar']) !!}
+                            </p>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
@@ -30,10 +32,13 @@
                                     <th>ID User</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Codigo de Barra</th>
                                     <th>Acciones</th>
+                                    <th>Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 @foreach($users as $user)
                                     @if(isNotAdmin($user->role))
                                         @if($user->registration_token=="")
@@ -43,33 +48,50 @@
                                                 <td>{{$user->id_user}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <div class="center">
-
-                                                <td><p class="text-center"><a href="{{route('detailsUser', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}"
-                                                                title="Detalle de {{$user->fullname}}"></a> || <a
-                                                            href="{{route('admin.user.edit', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}"
-                                                                title="Editar a {{$user->fullname}}"></a> || <a
-                                                            href="#" class="btn-delete"><img
-                                                                title="Eliminar {{$user->fullname}}"
-                                                                src="{{asset('imag/delete.png')}}"></a>
-
-                                                    @if($user->terminado != 0 && $user->fecha_entrega == null)
-                                                            <!-- Button trigger modal -->
-                                                    || <button type="button" class="btn btn-primary btn-circle" data-toggle="modal" data-target="#myModal{{$user->id}}"><i data-toggle="tooltip" data-placement="top" title="Calendario" class="fa fa-calendar"></i></button>
-                                                        {!! Form::open(['route' => ['fechaEntrega',$user], 'method' => 'PUT']) !!}
-                                                            @include('auth.Admin.partials.modalUser')
-                                                        {!! Form::close()!!}
+                                                <td> <p class="text-center"> <img src="data:image/png;base64,{{codigoBarra($user->codigo_barra)}}" name="{{$user->id}}" height="50">
+                                                    {!! Form::hidden('codigo',$user->codigo_barra) !!}
                                                     </p></td>
-                                                </div>
-                                                @endif
+
+                                                <td>
+                                                    <p class="text-center"><a
+                                                                href="{{route('detailsUser', $user->id)}}"><img
+                                                                    src="{{asset('imag/Edit.png')}}"
+                                                                    title="Detalle de {{$user->fullname}}"></a> ||
+                                                        <a
+                                                                href="{{route('admin.user.edit', $user->id)}}"><img
+                                                                    src="{{asset('imag/Edit.png')}}"
+                                                                    title="Editar a {{$user->fullname}}"></a>
+
+                                                        @if($user->terminado != 0 && $user->fecha_entrega == null)
+                                                                <!-- Button trigger modal -->
+                                                        ||
+                                                        <button type="button" class="btn btn-primary btn-circle"
+                                                                data-toggle="modal"
+                                                                data-target="#myModal{{$user->id}}"><i
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="Calendario" class="fa fa-calendar"></i>
+                                                        </button>
+                                                        {!! Form::open(['route' => ['fechaEntrega',$user], 'method' => 'PUT']) !!}
+                                                        @include('auth.Admin.partials.modalUser')
+                                                        {!! Form::close()!!}
+                                                        @endif
+                                                    </p>
+                                                </td>
+
+
+                                                <td>
+                                                    <p class="text-center"><a
+                                                                href="#" class="btn-delete"><img
+                                                                    title="Eliminar {{$user->fullname}}"
+                                                                    src="{{asset('imag/delete.png')}}"></a>
+                                                        || {!! Form::checkbox('ids[]', $user->id) !!} </p>
+                                                </td>
+
 
                                             </tr>
                                         @endif
                                     @endif
                                 @endforeach
-
                                 </tbody>
                             </table>
 
@@ -98,8 +120,8 @@
             @include('partials.datepicker')
 
            $('#dataTables-example').DataTable({
-                responsive: true
-            });
+                        responsive: true
+                    });
 
         });
     </script>
@@ -107,7 +129,7 @@
     <script>
         $(document).ready(function () {
 
-           $(document).on('click', '.btn-delete', function (e) {
+            $(document).on('click', '.btn-delete', function (e) {
                 e.preventDefault()
 
                 var row = $(this).parents('tr');
@@ -129,9 +151,13 @@
 
 
             });
-        });
 
+
+        });
     </script>
+
+
+
 
 
 

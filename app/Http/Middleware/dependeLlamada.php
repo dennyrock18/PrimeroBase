@@ -22,8 +22,11 @@ class dependeLlamada
         //dd(is_null($request->route()->parameter($role)));
 
         if(!is_null($request->route()->parameter($role)) && is_null($user))abort(404);
-        if(!is_null($user) && $user->role!=$role && in_array($role,$resultado)) abort(401);
+        if(!is_null($user) && $user->role!=$role && in_array($role,$resultado)) {
+            \Log::error('El user '. $user->fullname . 'intento acceder a una parte que no tiene permiso');
 
+            abort(401);
+        }
         return $next($request);
     }
 }

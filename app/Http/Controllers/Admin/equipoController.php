@@ -170,7 +170,19 @@ class equipoController extends Controller
     {
         $equipo = Equipo::find($id);
         if (is_null($equipo)) abort(404);
+
+        $user = $equipo->user;
+
+        //dd($user);
         $equipo->delete();
+
+        if(count($user->equipo)==0)
+        {
+            $user->terminado = 0;
+            $user->save();
+        }
+
+
         $message = 'El equipo: ' . $equipo->s_n . ' del user ' . $equipo->user->fullname . ' fue eliminado de nuestro registro';
         if ($request->ajax()) {
             return response()->json([

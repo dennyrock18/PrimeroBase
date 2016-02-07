@@ -1,5 +1,7 @@
 <?php
 
+use App\citys;
+
 Route::group(['middleware' => 'dependeLlamada:user'], function () {
 
     Route::get('user/details/{user}/user', [
@@ -14,8 +16,16 @@ Route::group(['middleware' => 'dependeLlamada:user'], function () {
         'uses' => 'AdminController@fechaEntrega'
     ]);
 
+
+
     Route::resource('user', 'AdminController');
 });
+
+/*Route::get('user/eliminar', [
+
+    'as' => 'eliminarVarios',
+    'uses' => 'AdminController@eliminarVarios'
+]);*/
 
 Route::get('city', function () {
     $id = Input::get('state_id');

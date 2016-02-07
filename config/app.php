@@ -153,6 +153,7 @@ return [
         GeneaLabs\Phpgmaps\PhpgmapsServiceProvider::class,
         D3Catalyst\GeoIP\Laravel4\ServiceProviders\GeoIPServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
 
     ],

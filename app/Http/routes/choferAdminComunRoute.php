@@ -44,3 +44,4 @@ Route::get('cancelar/delivery', function () {
     //Alert::message('Se ha eliminado el Usuario: ' . $user->fullname . ' del listado de deliveris', 'success');
     return redirect()->route('delivery.index'/*, compact('$users')*/);
 });
+

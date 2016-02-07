@@ -8,7 +8,8 @@ use App\Http\Requests;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\editUserRequest;
 use App\User;
-use DateTime;
+use Faker\Factory as Faker;
+use Faker\Generator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -16,6 +17,11 @@ use Styde\Html\Facades\Alert;
 
 class AdminController extends Controller
 {
+    public function eliminarVarios(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function setting()
     {
         $chofer = User::where('role','chofer')->get();
@@ -74,13 +80,15 @@ class AdminController extends Controller
             return redirect()->back();
         }
 
+        $faker = Faker::create();
 
         $user = new User($request->all());
         $user->role = 'user';
         $user->registration_token = str_random(40);
         $user->terminado = 0;
         $user->fecha_entrega = null;
-        $user->activo = 0;
+        $user->activo = 1;
+        $user->codigo_barra = $faker->isbn10;
         $user->save();
 
         $url = route('confirmation', ['token' => $user->registration_token]);
