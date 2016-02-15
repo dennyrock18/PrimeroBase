@@ -53,7 +53,7 @@ class AdminUserController extends Controller
         $user->save();
 
         Alert::message('Se ha creado el Nuevo Administrador: ' . $user->fullname, 'success');
-        return redirect()->route('admin.administrator.index');
+        return redirect()->route('admin.admin.index');
     }
 
     /**

@@ -14,7 +14,7 @@
             <div class="col-lg-4 col-md-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Equipo
+                        Tipo de Equipo
                     </div>
                     <div class="panel-body">
                         <p><a href="{{route('admin.tipoequipo.index')}}" class="btn btn-primary"><i

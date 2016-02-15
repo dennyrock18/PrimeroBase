@@ -16,5 +16,5 @@ class Equipo extends Model
         return $this->belongsTo(tipoEquipo::class,'tipo_equipos_id');
     }
 
-    protected $fillable = ['s_n', 'model','tipo_equipos_id'];
+    protected $fillable = ['s_n', 'model','tipo_equipos_id','observacion'];
 }

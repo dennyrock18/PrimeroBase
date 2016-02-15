@@ -25,12 +25,13 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Id_BD</th>
-                                    <th>Numero de Serie</th>
-                                    <th>Modelo</th>
-                                    <th>Tipo de Equipo</th>
-                                    <th>Propietario</th>
-                                    <th>Acciones</th>
+                                    <th class="col-lg-1">Id_BD</th>
+                                    <th class="col-lg-2">Numero de Serie</th>
+                                    <th class="col-lg-2">Modelo</th>
+                                    <th class="col-lg-2">Tipo de Equipo</th>
+                                    <th class="col-lg-2">Propietario</th>
+                                    <th class="col-lg-1">Acciones</th>
+                                    <th class="col-lg-1">Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,26 +44,31 @@
                                                 <td>{{$equipo->model}}</td>
                                                 <td>{{$equipo->type->tipoequipo}}</td>
                                                 <td>{{$equipo->user->fullname}}</td>
-                                                <td class="col-lg-2">
-                                                    <center><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
+                                                <td>
+                                                    <p class="text-center"><a
+                                                                href="{{route('admin.equipo.edit', $equipo->id)}}"><img
                                                                     src="{{asset('imag/Edit.png')}}"
-                                                                    title="Editar a {{$equipo->s_n}}"></a> || <a
-                                                                href="#" class="btn-delete"><img
-                                                                    title="Eliminar a {{$equipo->s_n}}"
-                                                                    src="{{asset('imag/delete.png')}}"></a>
-                                                        ||
+                                                                    title="Editar a {{$equipo->s_n}}"></a> ||
                                                         @if($equipo->terminado != 0)
                                                             <a href="#"><img src="{{asset('imag/forudaa.png')}}"
                                                                              title="Terminado"></a>
                                                         @else
-
                                                             <a
                                                                     href="{{route('terminar',$equipo->id)}}"><img
                                                                         title="Faltan equipos por arreglarce"
                                                                         src="{{asset('imag/noterminado.png')}}"></a>
-                                                    </center>
+                                                        @endif
+                                                    </p>
                                                 </td>
-                                                @endif
+                                                <td >
+                                                    <p class="text-center"><a
+                                                                href="#" class="btn-delete"><img
+                                                                    title="Eliminar a {{$equipo->s_n}}"
+                                                                    src="{{asset('imag/delete.png')}}"></a>
+
+                                                    </p>
+                                                </td>
+
                                             </tr>
                                         @endif
                                     @endif

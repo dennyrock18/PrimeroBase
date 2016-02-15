@@ -21,6 +21,8 @@ class DeliveriController extends Controller
     {
         $today = new DateTime();
 
+       $users = User::where('fecha_entrega', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->paginate(2);
+
         $usersAplasados = User::where('fecha_entrega','<', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->get();
 
         foreach($usersAplasados as $user)
@@ -28,9 +30,7 @@ class DeliveriController extends Controller
             $this->AplazarDelivery($user->id);
         }
 
-        $users = User::where('fecha_entrega', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->paginate(2);
-
-        //dd($users);
+        //dd($today);
 
         return view('auth.Delivery.delivery', compact('users'));
     }

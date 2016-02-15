@@ -8,3 +8,6 @@
     {!! Field::select('tipo_equipos_id',$tipoEquipo ,['empty' => 'Seleccione...','label' => 'Tipo de Equipo','required','id' => 'state','class' => 'form-control']) !!}
 
 </div>
+<div class="form-group">
+    {!! Field::textarea('observacion',['label' => 'Observacion','rows' => '3','required','class'=> 'form-control', 'placeholder' => 'Please, write the Observation']) !!}
+</div>

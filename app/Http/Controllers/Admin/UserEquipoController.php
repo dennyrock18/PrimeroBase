@@ -62,7 +62,8 @@ class UserEquipoController extends Controller
         $this->validate($request, [
             's_n' => 'required|unique:equipos,s_n',
             'model' => 'required',
-            'tipo_equipos_id' => 'required|exists:tipo_equipos,id'
+            'tipo_equipos_id' => 'required|exists:tipo_equipos,id',
+            'observacion' => 'required|max:100'
         ]);
 
         $user = User::find($id);
@@ -74,6 +75,8 @@ class UserEquipoController extends Controller
 
         $user->terminado = 0;
         $user->save();
+
+        //dd($equipo);
 
         $equipo->save();
 
@@ -157,8 +160,13 @@ class UserEquipoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+
+    }
+
+    public function deleteMultiplo(Request $request)
+    {
+        dd($request->all());
     }
 }

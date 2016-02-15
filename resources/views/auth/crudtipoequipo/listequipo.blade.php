@@ -11,7 +11,7 @@
         </div>
         <!-- /.row -->
         <div class="row">
-            <div class="col-lg-8 col-md-offset-2">
+            <div class="col-lg-6 col-md-offset-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         Equipos
@@ -26,9 +26,10 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Id_BD</th>
-                                    <th>Equipo</th>
-                                    <th class="col-lg-2">Acciones</th>
+                                    <th class="col-lg-1">Id_BD</th>
+                                    <th class="col-lg-2">Equipo</th>
+                                    <th class="col-lg-1">Acciones</th>
+                                    <th class="col-lg-1">Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -36,15 +37,17 @@
                                     <tr class="gradeA" data-id="{{$tpe->id}}">
                                         <td>{{$tpe->id}}</td>
                                         <td>{{$tpe->tipoequipo}}</td>
-                                        <td><a href="{{route('admin.tipoequipo.edit', $tpe->id)}}"><img
+                                        <td><p class="text-center"><a href="{{route('admin.tipoequipo.edit', $tpe->id)}}"><img
                                                         src="{{asset('imag/Edit.png')}}"
-                                                        title="Editar a {{$tpe->tipoequipo}}"></a> || <a
+                                                        title="Editar a {{$tpe->tipoequipo}}"></a>
+
+                                        </p></td>
+                                        <td><p class="text-center"><a
                                                     href="#" class="btn-delete"><img
                                                         title="Eliminar {{$tpe->tipoequipo}}"
                                                         src="{{asset('imag/delete.png')}}"></a>
 
-                                        </td>
-
+                                            </p></td>
 
                                     </tr>
                                 @endforeach

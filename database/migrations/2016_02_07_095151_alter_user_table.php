@@ -13,7 +13,7 @@ class AlterUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('codigo_barra',10)->unique()->after('activo');
+            $table->string('codigo_barra',10)->after('activo');
             $table->softDeletes();
         });
     }

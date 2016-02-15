@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Listado de Equipos del usuario {{$user->fullname}}</h3>
+                <h3 class="page-header">Listado de Equipos del usuario <small>{{ $user->fullname }}</small></h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -16,7 +16,8 @@
                     <div class="panel-heading ">
                         <a href="{{route('foraddequipouser', $user->id)}}"><img
                                     src="{{asset('imag/equipo.png')}}"
-                                    title="Agregar un equipo"></a> <a href="{{route('pfduserequipos',$user->id)}}" target="_blank"><img
+                                    title="Agregar un equipo"></a> <a href="{{route('pfduserequipos',$user->id)}}"
+                                                                      target="_blank"><img
                                     title="Informe en pdf"
                                     src="{{asset('imag/pdf.png')}}"></a>
                     </div>
@@ -27,11 +28,13 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Id_BD</th>
-                                    <th>Numero de Serie</th>
-                                    <th>Modelo</th>
-                                    <th>Tipo de Equipo</th>
-                                    <th>Acciones</th>
+                                    <th class="col-lg-1">Id_BD</th>
+                                    <th class="col-lg-2">Numero de Serie</th>
+                                    <th class="col-lg-2">Modelo</th>
+                                    <th class="col-lg-2">Tipo de Equipo</th>
+                                    <th class="col-lg-2">Observacion</th>
+                                    <th class="col-lg-1">Acciones</th>
+                                    <th class="col-lg-1">Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,25 +44,29 @@
                                         <td>{{$equipo->s_n}}</td>
                                         <td>{{$equipo->model}}</td>
                                         <td>{{$equipo->type->tipoequipo}}</td>
+                                        <td><p><i class="fa fa-comments fa-fw"></i> {{$equipo->observacion}}</p></td>
                                         <td class="col-lg-2">
-                                            <center><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
+                                            <p class="text-center"><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
                                                             src="{{asset('imag/Edit.png')}}"
-                                                            title="Editar a {{$equipo->s_n}}"></a> || <a
-                                                        href="#" class="btn-delete"><img
-                                                            title="Eliminar a {{$equipo->s_n}}"
-                                                            src="{{asset('imag/delete.png')}}"></a>||
+                                                            title="Editar a {{$equipo->s_n}}"></a>
                                                 @if($equipo->terminado != 0)
-                                                    <a href="#"><img src="{{asset('imag/forudaa.png')}}"
-                                                                     title="Terminado"></a>
+                                                    || <a href="#"><img src="{{asset('imag/forudaa.png')}}"
+                                                                        title="Terminado"></a>
                                                 @else
 
-                                                    <a
-                                                            href="{{route('terminar',$equipo->id)}}"><img
+                                                    <a href="{{route('terminar',$equipo->id)}}"><img
                                                                 title="Faltan equipos por arreglarce"
                                                                 src="{{asset('imag/noterminado.png')}}"></a>
-                                            </center>
+                                                @endif
+                                            </p>
                                         </td>
-                                        @endif
+                                        <td>
+                                            <p class="text-center"><a
+                                                        href="#" class="btn-delete"><img
+                                                            title="Eliminar a {{$equipo->s_n}}"
+                                                            src="{{asset('imag/delete.png')}}"></a>
+                                            </p>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -112,10 +119,35 @@
                     });
                 }
             });
+
+            $(document).on('click', '#buttoneliminar', function (i) {
+                i.preventDefault()
+
+                if (confirm("Realmente decea eliminar este registro ?")) {
+
+                    var form1 = $('#deletev');
+                    var url1 = form1.attr('action');
+                    var data1 = form1.serialize();
+
+                    alert(form1.attr('action'));
+
+                    $.post(url, data, function (result) {
+                        alert(result.message);
+                        row.fadeOut();
+                    })
+
+                }
+            });
         });
 
     </script>
 
+    //Eliminar Varios
+    <script>
+        $(document).ready(function () {
 
+        });
+    </script>
+    });
 
 @stop

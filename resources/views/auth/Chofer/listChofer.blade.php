@@ -25,12 +25,13 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Id_BD</th>
-                                    <th>Nombre Completo</th>
-                                    <th>Driver License</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Acciones</th>
+                                    <th class="col-lg-1">Id_BD</th>
+                                    <th class="col-lg-2">Nombre Completo</th>
+                                    <th class="col-lg-1">Driver License</th>
+                                    <th class="col-lg-2">Email</th>
+                                    <th class="col-lg-1">Phone</th>
+                                    <th class="col-lg-1">Acciones</th>
+                                    <th class="col-lg-1">Eliminar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,15 +44,18 @@
                                                 <td>{{$user->id_user}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <td><a href="{{route('detailsUserChofer', $user->id)}}"><img
-                                                                src="{{asset('imag/Edit.png')}}"
+                                                <td><p class="text-center"><a href="{{route('detailsUserChofer', $user->id)}}"><img
+                                                                src="{{asset('imag/eye.png')}}"
                                                                 title="Detalle de {{$user->fullname}}"></a> || <a
                                                             href="{{route('admin.chofer.edit', $user->id)}}"><img
                                                                 src="{{asset('imag/Edit.png')}}"
-                                                                title="Editar a {{$user->fullname}}"></a> || <a
+                                                                title="Editar a {{$user->fullname}}"></a></p>
+                                                </td>
+                                                <td><p class="text-center"><a
                                                             href="#" class="btn-delete"><img
                                                                 title="Eliminar {{$user->fullname}}"
-                                                                src="{{asset('imag/delete.png')}}"></a></td>
+                                                                src="{{asset('imag/delete.png')}}"></a>
+                                                </p></td>
 
 
                                             </tr>

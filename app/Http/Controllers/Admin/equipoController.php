@@ -149,7 +149,8 @@ class equipoController extends Controller
         $this->validate($request, [
             's_n' => 'required|unique:equipos,s_n,' . $request->route()->parameter('equipo'),
             'model' => 'required',
-            'tipo_equipos_id' => 'required|exists:tipo_equipos,id'
+            'tipo_equipos_id' => 'required|exists:tipo_equipos,id',
+            'observacion' => 'required|max:100'
         ]);
         $equipo = Equipo::find($id);
         if (is_null($equipo)) abort(404);

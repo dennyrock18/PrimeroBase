@@ -104,6 +104,17 @@ function isTrueFecha($id,$fecha)
     $user->save();
 
     return true;
+}
+
+function fechaEntrega($users)
+{
+    foreach($users as $user)
+    {
+        if($user->terminado != 0 && $user->fecha_entrega == null)
+            return true;
+    }
+
+    return false;
 
 }
 

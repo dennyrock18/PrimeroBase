@@ -11,6 +11,12 @@ Route::post('add/{id}/equipo', [
 'uses' => 'UserEquipoController@postquipouser'
 ]);
 
+Route::post('delete', [
+
+    'as' => 'deletemultiplo',
+    'uses' => 'UserEquipoController@deleteMultiplo'
+]);
+
 Route::resource('add/user/equipos', 'UserEquipoController');
 Route::resource('tipoequipo', 'tipoEquipoController');
 Route::resource('equipo', 'equipoController');

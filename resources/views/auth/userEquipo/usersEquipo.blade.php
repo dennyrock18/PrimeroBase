@@ -23,12 +23,12 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Id_BD</th>
-                                    <th>Nombre Completo</th>
-                                    <th>ID User</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Acciones</th>
+                                    <th class="col-lg-1">Id_BD</th>
+                                    <th class="col-lg-2">Nombre Completo</th>
+                                    <th class="col-lg-1">ID User</th>
+                                    <th class="col-lg-2">Email</th>
+                                    <th class="col-lg-1">Phone</th>
+                                    <th class="col-lg-1">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -41,7 +41,7 @@
                                                 <td>{{$user->id_user}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <td><a href="{{route('foraddequipouser', $user->id)}}"><img
+                                                <td><p class="text-center"><a href="{{route('foraddequipouser', $user->id)}}"><img
                                                                 src="{{asset('imag/equipo.png')}}"
                                                                 title="Agregar un equipo a {{$user->fullname}}"></a> ||
                                                     <a href="{{route('admin.add.user.equipos.edit', $user->id)}}"><img
@@ -49,7 +49,7 @@
                                                                 title="Equipos de {{$user->fullname}}"></a> || <a
                                                             href="{{route('pfduserequipos',$user->id)}}" target="_blank"><img
                                                                 title="Informe de los equipos de {{$user->fullname}}"
-                                                                src="{{asset('imag/pdf.png')}}"></a>
+                                                                src="{{asset('imag/pdf.png')}}"></a></p>
 
 
                                             </tr>

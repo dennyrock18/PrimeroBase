@@ -5,7 +5,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Agregar equipo a: {{$user->fullname}}</h3>
+                <h3 class="page-header">Agregar equipo <small>{{ $user->fullname }}</small></h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>

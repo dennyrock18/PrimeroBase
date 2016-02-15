@@ -24,12 +24,12 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Id_BD</th>
-                                    <th>Nombre</th>
-                                    <th>Generado</th>
-                                    <th>Fecha</th>
-                                    <th>Hora</th>
-                                    <th>Acciones</th>
+                                    <th class="col-lg-1">Id_BD</th>
+                                    <th class="col-lg-2">Nombre</th>
+                                    <th class="col-lg-2">Generado</th>
+                                    <th class="col-lg-1">Fecha</th>
+                                    <th class="col-lg-1">Hora</th>
+                                    <th class="col-lg-1">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
