@@ -11,3 +11,17 @@
 <div class="form-group">
     {!! Field::textarea('observacion',['label' => 'Observacion','rows' => '3','required','class'=> 'form-control', 'placeholder' => 'Please, write the Observation']) !!}
 </div>
+
+<div class="form-group">
+
+    <div class="well">
+        <p class="text-center">
+            <img src="data:image/png;base64,{{codigoBarra($codigoBarra)}}" height="50"></p>
+    </div>
+
+</div>
+
+
+
+
+

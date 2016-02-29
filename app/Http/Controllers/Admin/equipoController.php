@@ -128,8 +128,9 @@ class equipoController extends Controller
         $equipo = Equipo::find($id);
         if (is_null($equipo)) abort(404);
         $tipoEquipo = $this->tipoEquipo();
+        $codigoBarra = $equipo->codigo;
 
-        return view('auth.userEquipo.editEquipo', compact('equipo', 'tipoEquipo'));
+        return view('auth.userEquipo.editEquipo', compact('equipo', 'tipoEquipo','codigoBarra'));
     }
 
     public static function tipoEquipo()

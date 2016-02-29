@@ -18,7 +18,7 @@ class Authenticate
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
+     * @param  Guard $auth
      * @return void
      */
     public function __construct(Guard $auth)
@@ -29,8 +29,8 @@ class Authenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -39,10 +39,13 @@ class Authenticate
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                Alert::message('Debe logearce primero','danger');
+                Alert::message('Debe logearce primero', 'danger');
                 return redirect()->route('login');
             }
         }
+
+        $this->auth->user()->conectado = 1;
+        $this->auth->user()->save();
 
         return $next($request);
     }

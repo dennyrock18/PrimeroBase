@@ -23,8 +23,9 @@
                         <div class="row">
                             <div class="form-group">
                                 <div class="col-lg-12">
-                                    {!! Form::open(['route' => ['addequipouser',$user], 'method' => 'POST']) !!}
+                                    {!! Form::open(['route' => ['addequipouser',$user,'codigoBarra' => $codigoBarra], 'method' => 'POST']) !!}
                                     @include('auth.userEquipo.partials.formequipo')
+
                                     <div class="form-group">
                                         <p>{!! Form::submit('Crear', ['class' => 'btn btn-success ']) !!}</p>
                                     </div>

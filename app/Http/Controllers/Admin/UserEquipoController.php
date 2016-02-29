@@ -49,12 +49,13 @@ class UserEquipoController extends Controller
 
     public function getquipouser($id)
     {
+
         $user = User::find($id);
         if(is_null($user)|| $user->role == 'admin') abort(404);
         $tipoEquipo = $this->tipoEquipo();
 
-        //dd($user);
-        return view ('auth.userEquipo.addEquipo', compact('user','tipoEquipo'));
+        $codigoBarra = VerificarCodigoBarra();
+        return view ('auth.userEquipo.addEquipo', compact('user','tipoEquipo','codigoBarra'));
     }
 
     public function postquipouser($id, Request $request)
@@ -72,11 +73,10 @@ class UserEquipoController extends Controller
         $equipo = new Equipo($request->all());
         $equipo->terminado = 0;
         $equipo->user_id = $user->id;
+        $equipo->codigo = $request->get('codigoBarra');
 
         $user->terminado = 0;
         $user->save();
-
-        //dd($equipo);
 
         $equipo->save();
 

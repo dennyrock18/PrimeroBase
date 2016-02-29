@@ -19,7 +19,7 @@
                                 <i class="fa fa-key fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($admins)-1}}</div>
+                                <div class="huge">{{$adminsTotal-1}}</div>
                                 <div>Administrators!</div>
                             </div>
                         </div>
@@ -28,6 +28,7 @@
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -41,7 +42,7 @@
                                 <i class="fa fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($users)}}</div>
+                                <div class="huge">{{$usersTotal}}</div>
                                 <div>Usuarios!</div>
                             </div>
                         </div>
@@ -50,6 +51,7 @@
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -63,7 +65,7 @@
                                 <i class="fa fa-car fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($chofer)}}</div>
+                                <div class="huge">{{$choferTotal}}</div>
                                 <div>Chofer!</div>
                             </div>
                         </div>
@@ -72,6 +74,7 @@
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -85,7 +88,7 @@
                                 <i class="fa fa-laptop fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($equipos)}}</div>
+                                <div class="huge">{{$equiposTotal}}</div>
                                 <div>Equipos!</div>
                             </div>
                         </div>
@@ -94,6 +97,7 @@
                         <div class="panel-footer">
                             <span class="pull-left">View Details</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
                             <div class="clearfix"></div>
                         </div>
                     </a>
@@ -108,7 +112,8 @@
                         <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
                         <div class="pull-right">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+                                        data-toggle="dropdown">
                                     Actions
                                     <span class="caret"></span>
                                 </button>
@@ -123,10 +128,14 @@
                                     <li><a href="#">Separated link</a>
                                     </li>
                                 </ul>
+
                             </div>
+
                         </div>
+
                     </div>
-                    <!-- /.panel-heading -->
+
+                            <!-- /.panel-heading -->
                     <div class="panel-body">
                         <div id="morris-area-chart"></div>
                     </div>
@@ -138,7 +147,8 @@
                         <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
                         <div class="pull-right">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn btn-default btn-xs dropdown-toggle"
+                                        data-toggle="dropdown">
                                     Actions
                                     <span class="caret"></span>
                                 </button>
@@ -248,11 +258,18 @@
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                        <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+
+                                        <p>
+                                            <small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via
+                                                Twitter
+                                            </small>
                                         </p>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam
+                                            dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum
+                                            veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem
+                                            dicta, debitis.</p>
                                     </div>
                                 </div>
                             </li>
@@ -264,8 +281,14 @@
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia repellendus.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium maiores odit qui est tempora eos, nostrum provident explicabo dignissimos debitis vel! Adipisci eius voluptates, ad aut recusandae minus eaque facere.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem dolorem
+                                            quibusdam, tenetur commodi provident cumque magni voluptatem libero, quis
+                                            rerum. Fugiat esse debitis optio, tempore. Animi officiis alias, officia
+                                            repellendus.</p>
+
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium maiores
+                                            odit qui est tempora eos, nostrum provident explicabo dignissimos debitis
+                                            vel! Adipisci eius voluptates, ad aut recusandae minus eaque facere.</p>
                                     </div>
                                 </div>
                             </li>
@@ -277,7 +300,9 @@
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam facilis enim eaque, tenetur nam id qui vel velit similique nihil iure molestias aliquam, voluptatem totam quaerat, magni commodi quisquam.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus numquam
+                                            facilis enim eaque, tenetur nam id qui vel velit similique nihil iure
+                                            molestias aliquam, voluptatem totam quaerat, magni commodi quisquam.</p>
                                     </div>
                                 </div>
                             </li>
@@ -287,7 +312,10 @@
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est quaerat asperiores sapiente, eligendi, nihil. Itaque quos, alias sapiente rerum quas odit! Aperiam officiis quidem delectus libero, omnis ut debitis!</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates est
+                                            quaerat asperiores sapiente, eligendi, nihil. Itaque quos, alias sapiente
+                                            rerum quas odit! Aperiam officiis quidem delectus libero, omnis ut
+                                            debitis!</p>
                                     </div>
                                 </div>
                             </li>
@@ -299,11 +327,14 @@
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis minus modi
+                                            quam ipsum alias at est molestiae excepturi delectus nesciunt, quibusdam
+                                            debitis amet, beatae consequuntur impedit nulla qui! Laborum, atque.</p>
                                         <hr>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                                                <i class="fa fa-gear"></i>  <span class="caret"></span>
+                                            <button type="button" class="btn btn-primary btn-sm dropdown-toggle"
+                                                    data-toggle="dropdown">
+                                                <i class="fa fa-gear"></i> <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu" role="menu">
                                                 <li><a href="#">Action</a>
@@ -326,7 +357,10 @@
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi fuga odio quibusdam. Iure expedita, incidunt unde quis nam! Quod, quisquam. Officia quam qui adipisci quas consequuntur nostrum sequi. Consequuntur, commodi.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi fuga odio
+                                            quibusdam. Iure expedita, incidunt unde quis nam! Quod, quisquam. Officia
+                                            quam qui adipisci quas consequuntur nostrum sequi. Consequuntur,
+                                            commodi.</p>
                                     </div>
                                 </div>
                             </li>
@@ -338,7 +372,10 @@
                                         <h4 class="timeline-title">Lorem ipsum dolor</h4>
                                     </div>
                                     <div class="timeline-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati, quaerat tempore officia voluptas debitis consectetur culpa amet, accusamus dolorum fugiat, animi dicta aperiam, enim incidunt quisquam maxime neque eaque.</p>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt obcaecati,
+                                            quaerat tempore officia voluptas debitis consectetur culpa amet, accusamus
+                                            dolorum fugiat, animi dicta aperiam, enim incidunt quisquam maxime neque
+                                            eaque.</p>
                                     </div>
                                 </div>
                             </li>
@@ -463,8 +500,10 @@
                         <ul class="chat">
                             <li class="left clearfix">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                             class="img-circle"/>
                                     </span>
+
                                 <div class="chat-body clearfix">
                                     <div class="header">
                                         <strong class="primary-font">Jack Sparrow</strong>
@@ -473,52 +512,65 @@
                                         </small>
                                     </div>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+                                        ornare dolor, quis ullamcorper ligula sodales.
                                     </p>
                                 </div>
                             </li>
                             <li class="right clearfix">
                                     <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar"
+                                             class="img-circle"/>
                                     </span>
+
                                 <div class="chat-body clearfix">
                                     <div class="header">
                                         <small class=" text-muted">
-                                            <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
+                                            <i class="fa fa-clock-o fa-fw"></i> 13 mins ago
+                                        </small>
                                         <strong class="pull-right primary-font">Bhaumik Patel</strong>
                                     </div>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+                                        ornare dolor, quis ullamcorper ligula sodales.
                                     </p>
                                 </div>
                             </li>
                             <li class="left clearfix">
                                     <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar"
+                                             class="img-circle"/>
                                     </span>
+
                                 <div class="chat-body clearfix">
                                     <div class="header">
                                         <strong class="primary-font">Jack Sparrow</strong>
                                         <small class="pull-right text-muted">
-                                            <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
+                                            <i class="fa fa-clock-o fa-fw"></i> 14 mins ago
+                                        </small>
                                     </div>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+                                        ornare dolor, quis ullamcorper ligula sodales.
                                     </p>
                                 </div>
                             </li>
                             <li class="right clearfix">
                                     <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar"
+                                             class="img-circle"/>
                                     </span>
+
                                 <div class="chat-body clearfix">
                                     <div class="header">
                                         <small class=" text-muted">
-                                            <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
+                                            <i class="fa fa-clock-o fa-fw"></i> 15 mins ago
+                                        </small>
                                         <strong class="pull-right primary-font">Bhaumik Patel</strong>
                                     </div>
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum
+                                        ornare dolor, quis ullamcorper ligula sodales.
                                     </p>
                                 </div>
                             </li>
@@ -527,7 +579,8 @@
                     <!-- /.panel-body -->
                     <div class="panel-footer">
                         <div class="input-group">
-                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                            <input id="btn-input" type="text" class="form-control input-sm"
+                                   placeholder="Type your message here..."/>
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btn-chat">
                                         Send

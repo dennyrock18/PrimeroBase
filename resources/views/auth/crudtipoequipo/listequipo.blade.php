@@ -93,6 +93,7 @@
                 if (confirm("Realmente decea eliminar este registro ?")) {
 
                     $.post(url, data, function (result) {
+                        //message('El user paso para el listado de delivery', 'success');
                         alert(result.message);
                         row.fadeOut();
                     }).fail(function () {

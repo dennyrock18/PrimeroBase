@@ -201,7 +201,8 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
                 @if(currentUser()->role == 'admin')
-                    <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i> Admin
+                    <li><a href="{{route('detailsUserAdmin', currentUser()->id)}}"><i class="fa fa-user fa-fw"></i>
+                            Admin
                             Profile</a>
                     </li>
                 @endif
@@ -227,20 +228,32 @@
                 </li>
                 @if(currentUser()->role == 'admin')
                     <li>
-                        @if(currentUser()->role!='chofer')
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Sistema<span class="fa arrow"></span></a>
-                        @endif
+                        @if(currentUser()->email== 'admin@demo.com')
+                            <a href="#"><i class="fa fa-key fa-fw"></i> Adminis
+                                del Sistema<span class="fa arrow"></span></a>
 
-                        <ul class="nav nav-second-level">
-                            @if(currentUser()->email== 'admin@demo.com')
+                            <ul class="nav nav-second-level">
+
                                 <li>
-                                    <a href="{{route('admin.admin.index')}}"><i class="fa fa-key fa-fw"></i> Adminis
+                                    <a href="{{route('admin.admin.index')}}"><i class="fa fa-list-ol fa-fw"></i> Listado
+                                        de Administrador</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('logs')}}" target="_blank"><i class="fa fa-warning fa-fw"></i> Logs
                                         del Sistema</a>
                                 </li>
-                                <li>
-                                    <a href="{{route('logs')}}" target="_blank"><i class="fa fa-warning fa-fw"></i> Logs del Sistema</a>
-                                </li>
+                            </ul>
                             @endif
+                                    <!-- /.nav-second-level -->
+                    </li>
+
+
+                    <li>
+                        {{--@if(currentUser()->role!='chofer')--}}
+                        <a href="#"><i class="fa fa-wrench fa-fw"></i> Sistema<span class="fa arrow"></span></a>
+                        {{--@endif--}}
+
+                        <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{route('admin.tipoequipo.index')}}"><i class="fa fa-list-ul fa-fw"></i> Tipos
                                     de
@@ -258,6 +271,7 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
+
                     <li>
                         <a href="#"><i class="fa fa-list-ol fa-fw"></i> Funcionalidades <span
                                     class="fa arrow"></span></a>

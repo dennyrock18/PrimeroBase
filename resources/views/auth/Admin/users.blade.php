@@ -51,11 +51,11 @@
                                                 <td>{{$user->id_user}}</td>
                                                 <td>{{$user->email}}</td>
                                                 <td>{{$user->phone}}</td>
-                                                <td><p class="text-center"><img
+                                                <td><p class="text-center"><img alt="{{$user->codigo_barra}}"
                                                                 src="data:image/png;base64,{{codigoBarra($user->codigo_barra)}}"
                                                                 name="{{$user->id}}" height="50">
-                                                        {!! Form::hidden('codigo',$user->codigo_barra) !!}
-                                                    </p></td>
+
+                                                        </p></td>
                                                 @if(fechaEntrega($users))
                                                     <td>
                                                         <p class="text-center">

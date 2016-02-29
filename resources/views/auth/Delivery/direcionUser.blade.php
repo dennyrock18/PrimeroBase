@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <p><i class="fa fa-laptop"></i>
-                                        <abbr title="Cantidad de Equipos">M</abbr>: {{count($users->equipo)}}</p>
+                                        <abbr title="Cantidad de Equipos">M</abbr>: {{$users->total_equipo}}</p>
 
                                     <p><i class="fa fa-key"></i>
                                         <abbr title="ID">ID</abbr>: {{$users->id_user}}</p>

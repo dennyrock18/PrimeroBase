@@ -20,7 +20,8 @@
                     <div class="panel-body">
                         @include('partials.message')
                         <div class="dataTable_wrapper">
-                            <p><a title="Agregar Usuario" href="{{route('admin.admin.create')}}" class="btn btn-primary"><i
+                            <p><a title="Agregar Usuario" href="{{route('admin.admin.create')}}"
+                                  class="btn btn-primary"><i
                                             class="fa fa-plus-circle fa-fw"></i>Agregar Usuario</a></p>
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
@@ -36,27 +37,28 @@
                                 </thead>
                                 <tbody>
                                 @foreach($users as $user)
-                                    @if(currentUser()->id != $user->id)
-                                        <tr class="gradeA" data-id="{{$user->id}}">
-                                            <td>{{$user->id}}</td>
-                                            <td>{{$user->fullname}}</td>
-                                            <td>{{$user->id_user}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            <td><p class="text-center"><a href="{{route('detailsUserAdmin', $user->id)}}"><img
+                                    {{--@if(currentUser()->id != $user->id)--}}
+                                    <tr class="gradeA" data-id="{{$user->id}}">
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->fullname}}</td>
+                                        <td>{{$user->id_user}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->phone}}</td>
+                                        <td><p class="text-center"><a
+                                                        href="{{route('detailsUserAdmin', $user->id)}}"><img
                                                             src="{{asset('imag/eye.png')}}"
                                                             title="Detalle de {{$user->fullname}}"></a> || <a
                                                         href="{{route('admin.admin.edit', $user->id)}}"><img
                                                             src="{{asset('imag/Edit.png')}}"
                                                             title="Editar a {{$user->fullname}}"></a></p>
-                                            </td>
-                                            <td><p class="text-center"><a
-                                                            href="#" class="btn-delete"><img
-                                                                title="Eliminar {{$user->fullname}}"
-                                                                src="{{asset('imag/delete.png')}}"></a></p>
-                                            </td>
-                                        </tr>
-                                    @endif
+                                        </td>
+                                        <td><p class="text-center"><a
+                                                        href="#" class="btn-delete"><img
+                                                            title="Eliminar {{$user->fullname}}"
+                                                            src="{{asset('imag/delete.png')}}"></a></p>
+                                        </td>
+                                    </tr>
+                                    {{--@endif--}}
                                 @endforeach
                                 </tbody>
                             </table>

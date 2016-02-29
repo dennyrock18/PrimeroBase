@@ -27,7 +27,7 @@ class DeliveriController extends Controller
 
         foreach($usersAplasados as $user)
         {
-            $this->AplazarDelivery($user->id);
+            $user = $this->AplazarDelivery($user->id);
         }
 
         //dd($today);
@@ -41,12 +41,16 @@ class DeliveriController extends Controller
         $user->fecha_entrega = null;
         $user->save();
 
+        return $user;
+
     }
 
     public function cancelarDelivery($id)
     {
-        $this->AplazarDelivery($id);
 
+        $user = $this->AplazarDelivery($id);
+
+        \Log::alert('El administrador ' . currentUser()->fullname . ' cancelo el delivery para el user ' . $user->fullname);
         return redirect()->route('auth.Delivery.delivery');
     }
 

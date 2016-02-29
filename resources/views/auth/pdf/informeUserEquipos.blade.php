@@ -4,7 +4,7 @@
 
     <h2>Usuario: {{$user->fullname}}</h2>
 
-    @if(count($user->equipo)!=0)
+    @if($user->total_equipo!=0)
         <table border="0" cellspacing="0" cellpadding="0">
             <thead>
             <tr>
@@ -32,7 +32,7 @@
             <tr>
                 <td colspan="2"></td>
                 <td>Total de Registros:</td>
-                <td class="grand total">{{count($user->equipo)}}</td>
+                <td class="grand total">{{$user->total_equipo}}</td>
             </tr>
             </tfoot>
         </table>

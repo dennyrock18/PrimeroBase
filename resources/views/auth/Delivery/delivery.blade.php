@@ -46,7 +46,7 @@
                                                 <div class="panel-body">
                                                     <p>Fecha de Entrega: {{cambiarFecha($user->fecha_entrega)}}</p>
 
-                                                    <p>Cantidad de equipos a entregar: {{count($user->equipo)}}</p>
+                                                    <p>Cantidad de equipos a entregar: {{$user->total_equipo}}</p>
                                                 </div>
                                             </div>
 

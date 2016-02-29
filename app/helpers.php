@@ -5,8 +5,9 @@ use App\pdf;
 use App\states;
 use App\User;
 use Carbon\Carbon;
-use GeneaLabs\Phpgmaps\Phpgmaps;
 use CodeItNow\BarcodeBundle\Utils\BarcodeGenerator;
+use Faker\Factory as Faker;
+use GeneaLabs\Phpgmaps\Phpgmaps;
 
 
 function currentUser()
@@ -17,22 +18,24 @@ function currentUser()
 
 function cambiarFecha($fecha)
 {
-    $resultado = explode('-',$fecha);
+    $resultado = explode('-', $fecha);
 
     return $resultado[1] . '/' . $resultado[2] . '/' . $resultado[0];
 }
 
-function diasEntreFechas($fecha){
+function diasEntreFechas($fecha)
+{
 
     $fecha_f = new DateTime();
     $fecha_i = new DateTime($fecha);
 
-    $dias	= (strtotime($fecha_i->format('Y-m-d'))-strtotime($fecha_f->format('Y-m-d')))/86400;
-    $dias 	= abs($dias); $dias = floor($dias);
+    $dias = (strtotime($fecha_i->format('Y-m-d')) - strtotime($fecha_f->format('Y-m-d'))) / 86400;
+    $dias = abs($dias);
+    $dias = floor($dias);
 
-    if($dias==0)
+    if ($dias == 0)
         return 'Hoy';
-    if($dias==1)
+    if ($dias == 1)
         return 'Ayer';
 
     return 'Hace ' . $dias . ' dias';
@@ -44,27 +47,27 @@ function  haceCuantos($fecha)
     $today = new DateTime();
     $creado = new DateTime($fecha);
 
-    $fechaInicio = explode('-',$creado->format('Y-m-d'));
-    $fechaFinal  = explode('-',$today->format('Y-m-d'));
-    $ini = mktime(0,0,0,$fechaInicio[0], $fechaInicio[1], $fechaInicio[2]);
-    $fin = mktime(0,0,0,$fechaFinal[0],$fechaFinal[1],$fechaFinal[2]);
-    $x = (floor(($fin - $ini)/60/60/24));
+    $fechaInicio = explode('-', $creado->format('Y-m-d'));
+    $fechaFinal = explode('-', $today->format('Y-m-d'));
+    $ini = mktime(0, 0, 0, $fechaInicio[0], $fechaInicio[1], $fechaInicio[2]);
+    $fin = mktime(0, 0, 0, $fechaFinal[0], $fechaFinal[1], $fechaFinal[2]);
+    $x = (floor(($fin - $ini) / 60 / 60 / 24));
     //dd('Dias entre las fechas dadas: '.$x);
 
-    return 'Dias entre las fechas dadas:'.$x;
+    return 'Dias entre las fechas dadas:' . $x;
 }
-    /*$date = Carbon::yesterday();
 
-    if($date == $fecha)
-        return 'Yesterday';
-    if($date == $fecha)
-        return 'Yesterday';*/
+/*$date = Carbon::yesterday();
 
+if($date == $fecha)
+    return 'Yesterday';
+if($date == $fecha)
+    return 'Yesterday';*/
 
 
 function NoAceptadoCorreo()
 {
-    $user = User::where('registration_token','<>','null')->where('role','user')->get();
+    $user = User::where('registration_token', '<>', 'null')->where('role', 'user')->get();
 
     return $user;
 }
@@ -79,10 +82,10 @@ function pdfTable($name)
     $pdfgenerar->save();
 }
 
-function isTrueFecha($id,$fecha)
+function isTrueFecha($id, $fecha)
 {
     $user = User::find($id);
-    $resultado = explode('/',$fecha);
+    $resultado = explode('/', $fecha);
 
     //Verifico si la fecha existe
     if (!checkdate($resultado[0], $resultado[1], $resultado[2])) {
@@ -93,8 +96,7 @@ function isTrueFecha($id,$fecha)
     $date = new DateTime($fecha);
 
     //Verifico si la fecha es mayor que la del dia en que se esta
-    if($date < $today)
-    {
+    if ($date < $today) {
         //dd($date);
         return false;
     }
@@ -103,14 +105,15 @@ function isTrueFecha($id,$fecha)
     $user->fecha_entrega = $date;
     $user->save();
 
+    \Log::alert('El administrador ' . currentUser()->fullname . ' paso para el listado de deliveris al usuario ' . ' [' . $user->fullname . ']');
+
     return true;
 }
 
 function fechaEntrega($users)
 {
-    foreach($users as $user)
-    {
-        if($user->terminado != 0 && $user->fecha_entrega == null)
+    foreach ($users as $user) {
+        if ($user->terminado != 0 && $user->fecha_entrega == null)
             return true;
     }
 
@@ -135,14 +138,30 @@ function codigoBarra($id)
     $barcode->setType(BarcodeGenerator::Code11);
     $barcode->setScale(2);
     $barcode->setThickness(25);
-    $code = $barcode->generate();
+
+    $code = $barcode->generate(null,null,null);
 
     return $code;
 }
 
+function VerificarCodigoBarra()
+{
+
+    $faker = Faker::create();
+
+    do {
+        $esta = null;
+        $codigo = $faker->isbn10;
+        $esta = User::find($codigo);
+
+    } while (str_contains($codigo,'X') || !is_null($esta));
+
+    return $codigo;
+}
+
 function city($value)
 {
-    return citys::where('state_id',$value)->lists('city', 'id')->toArray();
+    return citys::where('state_id', $value)->lists('city', 'id')->toArray();
 }
 
 function fecha($value)
@@ -154,6 +173,15 @@ function fecha($value)
     return $date->toFormattedDateString();
 }
 
+function userLogeadosSistema()
+{
+    $conectados = User::get();
+
+    return $conectados;
+}
+
+
+
 function hora($value)
 {
     $date = Carbon::now();
@@ -163,20 +191,20 @@ function hora($value)
     return $date->toTimeString();
 }
 
- function details($id)
+function details($id)
 {
     $users = User::Find($id);
     //dd($users);
     $latitudLongitud = latiLongi($users->Direccion);
     $marker = maps($latitudLongitud);
 
-     //dd($marker);
+    //dd($marker);
 
     return $marker;
 
 }
 
- function latiLongi($direccion)
+function latiLongi($direccion)
 {
     $latitud = 0;
     $longitud = 0;
@@ -202,7 +230,7 @@ function hora($value)
  * @param $latitudLongitud
  * @return array
  */
- function maps($latitudLongitud)
+function maps($latitudLongitud)
 {
 
     $marker = array();

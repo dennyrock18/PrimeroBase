@@ -13,6 +13,9 @@
 
 {!! Html::script('admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js') !!}
 
+<!-- Componente para los mensajes de alertas -->
+{!! Html::script('admin/js/alert.js') !!}
+
         <!-- Custom Theme JavaScript -->
 {!! Html::script('admin/dist/js/sb-admin-2.js') !!}
 

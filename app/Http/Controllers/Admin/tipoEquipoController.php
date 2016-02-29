@@ -123,6 +123,7 @@ class tipoEquipoController extends Controller
             ]);
         }
 
+        //Alert::message($message, 'success');
         Session::flash('message', $message);
         return redirect()->route('admin.tipoequipo.index');
     }

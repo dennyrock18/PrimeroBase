@@ -20,6 +20,7 @@ class ChoferController extends Controller
     public function index()
     {
         $users = User::where('role','chofer')->get();
+        \Log::alert('El administrador ' . currentUser()->fullname . ' visito el listado de los choferes ');
         return view('auth/Chofer/listChofer', compact('users'));
     }
 
@@ -31,6 +32,7 @@ class ChoferController extends Controller
     public function create()
     {
         $states = state();
+        \Log::alert('El administrador ' . currentUser()->fullname . ' visito la paguina para crear un chofer ');
         return view('auth.Chofer.addChofer', compact('states'));
     }
 
@@ -53,6 +55,7 @@ class ChoferController extends Controller
         $user->save();
 
         Alert::message('Se ha creado el Nuevo Chofer: ' . $user->fullname, 'success');
+        \Log::alert('El administrador ' . currentUser()->fullname . ' creo el chofer ' . $user->fullname);
         return redirect()->route('admin.chofer.index');
     }
 
@@ -77,6 +80,7 @@ class ChoferController extends Controller
     {
         $user = User::find($id);
 
+        \Log::alert('El administrador ' . currentUser()->fullname . ' visito la paguina para modificar el chofer ' . $user->fullname);
         return view('auth.chofer.editChofer', compact('user'));
     }
 
@@ -97,6 +101,7 @@ class ChoferController extends Controller
         //dd($user);
 
         Alert::message('It has been updated successfully', 'success');
+        \Log::alert('El administrador ' . currentUser()->fullname . ' modifico los datos del chofer ' . $user->fullname);
         return redirect()->back();
     }
 
@@ -120,6 +125,7 @@ class ChoferController extends Controller
         }
 
         Session::flash('message', $message);
+        \Log::alert('El administrador ' . currentUser()->fullname . ' elimino al chofer ' . $user->fullname);
         return redirect()->route('admin.chofer.index');
     }
 
@@ -131,6 +137,7 @@ class ChoferController extends Controller
         if(is_null($users)) abort(404);
         $marker = details($id);
 
+        \Log::alert('El administrador ' . currentUser()->fullname . ' consulto el detalle del chofer ' . $users->fullname);
         return view('auth/Chofer/detailsChofer', compact('users','marker'));
 
     }

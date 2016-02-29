@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -90,6 +91,16 @@ class AuthController extends Controller
         return Lang::has('auth.throttle')
             ? Lang::get('auth.throttle', ['minutos' => $minutos])
             : 'Too many login attempts. Please try again in '. $seconds. ' seconds.';
+    }
+
+    public function getLogout()
+    {
+        auth()->user()->conectado = 0;
+        auth()->user()->save();
+
+        Auth::logout();
+
+        return redirect('/');
     }
 
 }

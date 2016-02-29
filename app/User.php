@@ -59,6 +59,12 @@ class User extends Model implements AuthenticatableContract,
         return $this->streetAddress!='' ? $this->streetAddress . ' ' .$this->city->city . ' ' .$this->city->state->state .' '. $this->postCode
             : $this->secundaryAddress . ' ' .$this->city->city . ' ' .$this->city->state->state .' '. $this->postCode;
     }
+
+    public function getTotalEquipoAttribute()
+    {
+        return count($this->equipo);
+    }
+
     public function setPasswordAttribute($value)
     {
         //$this->attributes['password']=\Hash::make($value);
