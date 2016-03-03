@@ -17,4 +17,13 @@ class Equipo extends Model
     }
 
     protected $fillable = ['s_n', 'model','tipo_equipos_id','observacion'];
+
+    public function getDiagnosticoAttribute()
+    {
+
+        if(strlen($this->observacion)>50)
+            return substr($this->observacion,0,50) . ' ....';
+
+        return $this->observacion;
+    }
 }

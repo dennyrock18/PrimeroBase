@@ -14,6 +14,8 @@
 
 @include('partials.script')
 
+@yield('s')
+
 </body>
 
 </html>

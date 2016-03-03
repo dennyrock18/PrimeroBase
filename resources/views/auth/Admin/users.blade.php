@@ -24,7 +24,7 @@
                                             class="fa fa-plus-circle fa-fw"></i>Agregar
                                     Usuario</a>
                             </p>
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <table class="table table-striped table-bordered" id="dataTables-example">
                                 <thead>
                                 <tr>
                                     <th class="col-lg-1">Id_BD</th>

@@ -44,7 +44,7 @@
                                         <td>{{$equipo->s_n}}</td>
                                         <td>{{$equipo->model}}</td>
                                         <td>{{$equipo->type->tipoequipo}}</td>
-                                        <td><p><i class="fa fa-comments fa-fw"></i> {{$equipo->observacion}}</p></td>
+                                        <td><p><i class="fa fa-comments fa-fw"></i> {{$equipo->diagnostico}}</p></td>
                                         <td class="col-lg-2">
                                             <p class="text-center"><a href="{{route('admin.equipo.edit', $equipo->id)}}"><img
                                                             src="{{asset('imag/Edit.png')}}"

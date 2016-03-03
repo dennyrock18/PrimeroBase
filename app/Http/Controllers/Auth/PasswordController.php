@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Styde\Html\Facades\Alert;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PasswordController extends Controller
 {
@@ -40,7 +42,29 @@ class PasswordController extends Controller
         return route('login');
     }
 
+    public function getEmail()
+    {
+        return view('auth.register.password');
+    }
 
+    public function getReset($token = null)
+    {
+        //dd($token);
+        if (is_null($token)) {
+            throw new NotFoundHttpException;
+        }
+
+        return view('auth.register.reset')->with('token', $token);
+    }
+
+    protected function resetPassword($user, $password)
+    {
+        $user->password = $password;
+
+        $user->save();
+
+        Auth::login($user);
+    }
 
 
 }

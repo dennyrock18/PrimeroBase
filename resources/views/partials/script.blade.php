@@ -19,6 +19,10 @@
         <!-- Custom Theme JavaScript -->
 {!! Html::script('admin/dist/js/sb-admin-2.js') !!}
 
+        <!-- iCheck -->
+{!! Html::script('admin/plugins/iCheck/icheck.min.js') !!}
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.js"></script>
 
         <!-- Morris Charts JavaScript -->
