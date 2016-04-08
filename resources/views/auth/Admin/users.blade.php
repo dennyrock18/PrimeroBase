@@ -24,82 +24,86 @@
                                             class="fa fa-plus-circle fa-fw"></i>Agregar
                                     Usuario</a>
                             </p>
-                            <table class="table table-striped table-bordered" id="dataTables-example">
-                                <thead>
-                                <tr>
-                                    <th class="col-lg-1">Id_BD</th>
-                                    <th class="col-lg-2">Nombre Completo</th>
-                                    <th class="col-lg-1">ID User</th>
-                                    <th class="col-lg-2">Email</th>
-                                    <th class="col-lg-1">Phone</th>
-                                    <th class="col-lg-2">Codigo de Barra</th>
-                                    @if(fechaEntrega($users))
-                                        <th class="col-lg-1">Fecha Entrega </th>
-                                    @endif
-                                    <th class="col-lg-2">Acciones</th>
-                                    <th class="col-lg-2">Eliminar</th>
-                                </tr>
-                                </thead>
-                                <tbody>
 
-                                @foreach($users as $user)
-                                    @if(isNotAdmin($user->role))
-                                        @if($user->registration_token=="")
-                                            <tr class="gradeA" data-id="{{$user->id}}">
-                                                <td>{{$user->id}}</td>
-                                                <td>{{$user->fullname}}</td>
-                                                <td>{{$user->id_user}}</td>
-                                                <td>{{$user->email}}</td>
-                                                <td>{{$user->phone}}</td>
-                                                <td><p class="text-center"><img alt="{{$user->codigo_barra}}"
-                                                                src="data:image/png;base64,{{codigoBarra($user->codigo_barra)}}"
-                                                                name="{{$user->id}}" height="50">
+                            <div id="principalPanel">
+                                <table class="table table-striped table-bordered" id="dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th class="col-lg-1">Id_BD</th>
+                                        <th class="col-lg-2">Nombre Completo</th>
+                                        <th class="col-lg-1">ID User</th>
+                                        <th class="col-lg-2">Email</th>
+                                        <th class="col-lg-1">Phone</th>
+                                        <th class="col-lg-2">Codigo de Barra</th>
+                                        @if(fechaEntrega($users))
+                                            <th class="col-lg-1">Fecha Entrega</th>
+                                        @endif
+                                        <th class="col-lg-2">Acciones</th>
+                                        <th class="col-lg-2">Eliminar</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    @foreach($users as $user)
+                                        @if(isNotAdmin($user->role))
+                                            @if($user->registration_token=="")
+                                                <tr class="gradeA" data-id="{{$user->id}}">
+                                                    <td>{{$user->id}}</td>
+                                                    <td>{{$user->fullname}}</td>
+                                                    <td>{{$user->id_user}}</td>
+                                                    <td>{{$user->email}}</td>
+                                                    <td>{{$user->phone}}</td>
+                                                    <td><p class="text-center"><img alt="{{$user->codigo_barra}}"
+                                                                                    src="data:image/png;base64,{{codigoBarra($user->codigo_barra)}}"
+                                                                                    name="{{$user->id}}" height="50">
 
                                                         </p></td>
-                                                @if(fechaEntrega($users))
+                                                    @if(fechaEntrega($users))
+                                                        <td>
+                                                            <p class="text-center">
+                                                                @if($user->terminado != 0 && $user->fecha_entrega == null)
+                                                                        <!-- Button trigger modal -->
+                                                                <button type="button" class="btn btn-primary btn-circle"
+                                                                        data-toggle="modal"
+                                                                        data-target="#myModal{{$user->id}}"><i
+                                                                            data-toggle="tooltip" data-placement="top"
+                                                                            title="Calendario"
+                                                                            class="fa fa-calendar"></i>
+                                                                </button>
+                                                                {!! Form::open(['route' => ['fechaEntrega',$user], 'method' => 'PUT']) !!}
+                                                                @include('auth.Admin.partials.modalUser')
+                                                                {!! Form::close()!!}
+                                                                @endif
+                                                            </p>
+                                                        </td>
+                                                    @endif
                                                     <td>
-                                                        <p class="text-center">
-                                                            @if($user->terminado != 0 && $user->fecha_entrega == null)
-                                                                    <!-- Button trigger modal -->
-                                                            <button type="button" class="btn btn-primary btn-circle"
-                                                                    data-toggle="modal"
-                                                                    data-target="#myModal{{$user->id}}"><i
-                                                                        data-toggle="tooltip" data-placement="top"
-                                                                        title="Calendario" class="fa fa-calendar"></i>
-                                                            </button>
-                                                            {!! Form::open(['route' => ['fechaEntrega',$user], 'method' => 'PUT']) !!}
-                                                            @include('auth.Admin.partials.modalUser')
-                                                            {!! Form::close()!!}
-                                                            @endif
+                                                        <p class="text-center"><a
+                                                                    href="{{route('detailsUser', $user->id)}}"><img
+                                                                        src="{{asset('imag/eye.png')}}"
+                                                                        title="Detalle de {{$user->fullname}}"></a> ||
+                                                            <a
+                                                                    href="{{route('admin.user.edit', $user->id)}}"><img
+                                                                        src="{{asset('imag/Edit.png')}}"
+                                                                        title="Editar a {{$user->fullname}}"></a>
                                                         </p>
                                                     </td>
-                                                @endif
-                                                <td>
-                                                    <p class="text-center"><a
-                                                                href="{{route('detailsUser', $user->id)}}"><img
-                                                                    src="{{asset('imag/eye.png')}}"
-                                                                    title="Detalle de {{$user->fullname}}"></a> ||
-                                                        <a
-                                                                href="{{route('admin.user.edit', $user->id)}}"><img
-                                                                    src="{{asset('imag/Edit.png')}}"
-                                                                    title="Editar a {{$user->fullname}}"></a>
-                                                    </p>
-                                                </td>
-                                                <td>
-                                                    <p class="text-center"><a
-                                                                href="#" class="btn-delete"><img
-                                                                    title="Eliminar {{$user->fullname}}"
-                                                                    src="{{asset('imag/delete.png')}}"></a>
+                                                    <td>
+                                                        <p class="text-center"><a
+                                                                    href="#" class="btn-delete"><img
+                                                                        title="Eliminar {{$user->fullname}}"
+                                                                        src="{{asset('imag/delete.png')}}"></a>
                                                         </p>
-                                                </td>
+                                                    </td>
 
 
-                                            </tr>
+                                                </tr>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endforeach
-                                </tbody>
-                            </table>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
                             {!! Form::open(['route' => ['admin.user.destroy', ':USER_ID'], 'method' => 'DELETE', 'id' => 'form-delete']) !!}
 
@@ -149,6 +153,7 @@
                     $.post(url, data, function (result) {
                         alert(result.message);
                         row.fadeOut();
+                        //$('#principalPanel').load(result.users);
                     }).fail(function () {
                         alert('El usuario no fue eliminado, Tiene elementos asociados a el');
                         row.show();
@@ -160,6 +165,8 @@
 
 
         });
+
+        
     </script>
 
 

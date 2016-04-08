@@ -16,7 +16,9 @@
         "rap2hpoutre/laravel-log-viewer": "^0.5.3",
         "doctrine/dbal": "2.5.1",
         "codeitnowin/barcode": "^1.0",
-        "acacha/admin-lte-template-laravel": "1.*"
+        "acacha/admin-lte-template-laravel": "1.*",
+        "intervention/image": "^2.3",
+        "guzzlehttp/guzzle": "~4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -22,8 +22,6 @@
 <!-- Custom CSS -->
 <link href="{{ asset('/admin/dist/css/sb-admin-2.css') }}" rel="stylesheet">
 
-<!-- Morris Charts CSS -->
-<link href="{{ asset('/admin/bower_components/morrisjs/morris.css') }}" rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link href="{{ asset('/admin/bower_components/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet"
@@ -31,12 +29,9 @@
 
 <link href="{{ asset('/admin/plugins/iCheck/square/blue.css') }}" rel="stylesheet" type="text/css" />
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-
 <!-- Calendario-->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/css/bootstrap-datepicker3.css" rel="stylesheet" type="text/css">
+
+
+
+

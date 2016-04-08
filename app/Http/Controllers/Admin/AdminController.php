@@ -11,10 +11,64 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Styde\Html\Facades\Alert;
 
 class AdminController extends Controller
 {
+    public function subirFoto()
+    {
+        \Log::alert(currentUser()->fullname . ' consulto la paguina para cambiar su avatar');
+        return view('auth/Dropzone/dropzone');
+    }
+
+    public function storeFoto(Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'mimes:jpeg,png|max:1024'
+
+        ]);
+
+        $file = $request->file('file');
+        //Creamos una instancia de la libreria instalada
+        $image = \Image::make($file);
+        //Ruta donde queremos guardar las imagenes
+        $path = public_path() . '/storage/fotos/';
+
+        // Guardar Original
+        //$image->save($path.$file->getClientOriginalName());
+
+
+        $fileName = currentUser()->id_user . $file->getClientOriginalName();
+
+        if (!Storage::exists($fileName)) {
+            $this->Foto($image, $path, $fileName);
+        }
+
+    }
+
+    public function Foto($image, $path, $fileName)
+    {
+        // Cambiar de tamaño large
+        $image->resize(100, 100);
+        // Guardar
+        $image->save($path . $fileName);
+
+        // Cambiar de tamaño small
+        $image->resize(50, 50);
+        // Guardar
+        $image->save($path . 'medium/' . $fileName);
+
+        // Cambiar de tamaño small
+        $image->resize(30, 30);
+        // Guardar
+        $image->save($path . 'small/' . $fileName);
+
+        currentUser()->foto = $fileName;
+        currentUser()->save();
+        \Log::alert(currentUser()->fullname . ' cambio su avatar por: ' . ' [' . $fileName . ']');
+    }
+
     public function eliminarVarios(Request $request)
     {
         dd($request->all());
@@ -26,14 +80,14 @@ class AdminController extends Controller
         $adminsTotal = User::where('role', 'admin')->count();
         $usersTotal = User::where('role', 'user')->count();
         $equiposTotal = Equipo::count();
+        $userConectados = User::where('conectado', '1')->get();
 
-        return view('auth/Admin/index', compact('choferTotal', 'adminsTotal', 'usersTotal', 'equiposTotal'));
+        return view('auth/Admin/index', compact('choferTotal', 'adminsTotal', 'usersTotal', 'equiposTotal', 'userConectados'));
     }
 
     public function detailsUser($id)
     {
         $users = User::Find($id);
-
         $marker = details($id);
 
         \Log::alert('El administrador ' . currentUser()->fullname . ' consulto el detalle del usuario ' . ' [' . $users->fullname . ']');
@@ -84,7 +138,7 @@ class AdminController extends Controller
 
         $user = new User($request->all());
         $user->role = 'user';
-        $user->registration_token = str_random(40);
+        //$user->registration_token = str_random(40);
         $user->terminado = 0;
         $user->fecha_entrega = null;
         $user->activo = 1;
@@ -92,11 +146,16 @@ class AdminController extends Controller
 
         $user->save();
 
-        $url = route('confirmation', ['token' => $user->registration_token]);
-
-        Mail::send('emails/registrations', compact('user', 'url'), function ($m) use ($user) {
+        Mail::send('emails/registrations', compact('user'), function ($m) use ($user) {
             $m->to($user->email, $user->name)->subject('Active your account!');
         });
+
+
+        /*$url = route('confirmation', ['token' => $user->registration_token]);
+        Mail::send('emails/registrations', compact('user', 'url'), function ($m) use ($user) {
+            $m->to($user->email, $user->name)->subject('Active your account!');
+        });*/
+
 
         Alert::message('Se ha creado el Usuario: ' . $user->fullname, 'success');
 
@@ -170,9 +229,11 @@ class AdminController extends Controller
             ]);
         }
 
+        $users = allUsers();
+
         Session::flash('message', $message);
         \Log::alert('El administrador ' . currentUser()->fullname . ' elimino al usuario ' . ' [' . $user->fullname . ']');
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('users', $users);
     }
 
     public function fechaEntrega($id, Request $request)

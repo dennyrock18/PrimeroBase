@@ -1,5 +1,6 @@
 <?php
 
+use App\delivery;
 use App\User;
 
 Route::get('welcome', [
@@ -9,6 +10,24 @@ Route::get('welcome', [
 ]);
 
 //delivery
+Route::get('delivery/realizados', [
+
+    'as' => 'deliveryRealizados',
+    'uses' => 'DeliveriController@deliveryR'
+]);
+
+Route::get('subir/foto', [
+
+    'as' => 'subirFoto',
+    'uses' => 'AdminController@subirFoto'
+]);
+
+Route::post('subir/foto', [
+
+    'as' => 'subirFoto',
+    'uses' => 'AdminController@storeFoto'
+]);
+
 Route::resource('delivery', 'DeliveriController');
 
 Route::get('password/change', ['as' => 'changePassword', 'uses' => 'PasswordController@getPassword']);
@@ -28,7 +47,9 @@ Route::group(['middleware' => 'delivery'], function () {
         'as' => 'fechaEntregaDelivery',
         'uses' => 'DeliveriController@fechaEntregaDelivery'
     ]);
+
 });
+
 
 Route::get('cancelar/delivery', function () {
     $id = Input::get('id_user');

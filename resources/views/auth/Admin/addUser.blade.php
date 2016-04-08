@@ -72,7 +72,7 @@
                                         {!! Field::tel('phone',['label' => 'Phone Number [format: (xxx)-xxx-xxxx]:','pattern'=>'^\(\d{3}\)-\d{3}-\d{4}$','maxlength'=>'14','required','class'=> 'form-control', 'placeholder' => 'Please, write the phone']) !!}
                                     </div>
                                     <div class="form-group">
-                                        {!! Field::select('city_id',null ,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
+                                        {!! Field::select('city_id',null,['empty' => 'Debe escojer un estado primero','label' => 'City','required','class' => 'form-control']) !!}
                                     </div>
                                     <!-- <div class="form-group">
                                         {{--{!! Field::select('city_id',null ,['empty' => 'Debe seleccionar primero el estado','required','label' => 'Ciudad','id' => 'city','class' => 'form-control']) !!}--}}

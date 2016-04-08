@@ -50,6 +50,7 @@ class AdminUserController extends Controller
         }
         $user = new User($request->all());
         $user->role = 'admin';
+        $user->foto = 'avatar.jpg';
         $user->save();
 
         Alert::message('Se ha creado el Nuevo Administrador: ' . $user->fullname, 'success');

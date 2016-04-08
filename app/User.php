@@ -44,6 +44,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->hasMany(Equipo::class);
     }
 
+    public function delivers()
+    {
+        return $this->hasMany(delivery::class);
+    }
+
     public function pdf()
     {
         return $this->hasMany(pdf::class);

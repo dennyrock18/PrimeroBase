@@ -11,7 +11,7 @@
 <main>
     <header class="clearfix">
         <div id="logo">
-            <img src="{{ asset('/admin/pdf/logo.png') }}">
+            <img src="{{ asset('imag/Logo.jpg') }}">
         </div>
         <h1>INFORME {{$date}}</h1>
 

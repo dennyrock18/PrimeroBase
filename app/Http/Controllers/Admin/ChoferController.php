@@ -52,6 +52,7 @@ class ChoferController extends Controller
         }
         $user = new User($request->all());
         $user->role = 'chofer';
+        $user->foto = 'avatar.jpg';
         $user->save();
 
         Alert::message('Se ha creado el Nuevo Chofer: ' . $user->fullname, 'success');

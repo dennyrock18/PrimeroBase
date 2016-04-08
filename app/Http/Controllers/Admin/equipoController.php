@@ -59,6 +59,8 @@ class equipoController extends Controller
 
             $users->terminado = 1;
 
+            //return view('emails.confirm', compact('users'));
+
             Mail::send('emails/confirm', compact('users'), function ($m) use ($users) {
                 $m->to($users->email, $users->name)->subject('Su equipo esta Listo!!!!');
             });

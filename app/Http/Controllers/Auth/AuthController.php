@@ -95,6 +95,8 @@ class AuthController extends Controller
 
     public function getLogout()
     {
+
+        //dd(auth()->user());
         auth()->user()->conectado = 0;
         auth()->user()->save();
 

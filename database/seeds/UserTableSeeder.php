@@ -14,7 +14,7 @@ class UserTableSeeder extends BaseSeeder
      */
     public function run()
     {
-        $this->createAdmin();
+        //$this->createAdmin();
         $this->createMultiple(9);
     }
 
@@ -63,6 +63,7 @@ class UserTableSeeder extends BaseSeeder
             'fecha_entrega' => null,
             'city_id' => '135',
             'activo'=> '1',
+            'conectado' => '0',
 
 
         ];

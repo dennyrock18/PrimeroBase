@@ -57,14 +57,6 @@ function  haceCuantos($fecha)
     return 'Dias entre las fechas dadas:' . $x;
 }
 
-/*$date = Carbon::yesterday();
-
-if($date == $fecha)
-    return 'Yesterday';
-if($date == $fecha)
-    return 'Yesterday';*/
-
-
 function NoAceptadoCorreo()
 {
     $user = User::where('registration_token', '<>', 'null')->where('role', 'user')->get();
@@ -94,6 +86,8 @@ function isTrueFecha($id, $fecha)
 
     $today = new DateTime();
     $date = new DateTime($fecha);
+
+    //dd($today, $date);
 
     //Verifico si la fecha es mayor que la del dia en que se esta
     if ($date < $today) {
@@ -194,11 +188,9 @@ function hora($value)
 function details($id)
 {
     $users = User::Find($id);
-    //dd($users);
+
     $latitudLongitud = latiLongi($users->Direccion);
     $marker = maps($latitudLongitud);
-
-    //dd($marker);
 
     return $marker;
 
@@ -252,6 +244,11 @@ function maps($latitudLongitud)
 
     return $marker;
 
+}
+
+function allUsers()
+{
+    return User::get();
 }
 
 

@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'noreply@repairpc.net', 'name' => 'RepairPC.net'],
+    'from' => ['address' => 'noreply@solucinformatica.com', 'name' => 'Soluciones Informaticas'],
 
     /*
     |--------------------------------------------------------------------------

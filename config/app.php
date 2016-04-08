@@ -145,6 +145,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ValidatorServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
         /*
          * Aplications Service Providers External
@@ -209,6 +210,8 @@ return [
         //Alias External
         'GeoIP' => D3Catalyst\GeoIP\Laravel4\Facades\GeoIP::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        //Intervention image
+        'Image' => Intervention\Image\Facades\Image::class,
 
 
 

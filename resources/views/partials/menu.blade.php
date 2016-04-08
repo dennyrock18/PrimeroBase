@@ -7,6 +7,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="{{route('welcomeAdmin')}}">admin</a>
+
     </div>
     <!-- /.navbar-header -->
 
@@ -197,7 +198,8 @@
         <!-- /.dropdown -->
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i> {{currentUser()->fullname}} <i class="fa fa-caret-down"></i>
+                <img src="{{'/storage/fotos/small/' . currentUser()->foto}}" class="img-circle"
+                     alt="User Image"> {{currentUser()->fullname}} <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
                 @if(currentUser()->role == 'admin')
@@ -206,6 +208,8 @@
                             Profile</a>
                     </li>
                 @endif
+                <li><a href="{{route('subirFoto')}}"><i class="fa fa-photo fa-fw"></i> Subir Foto</a>
+                </li>
                 <li><a href="{{route('changePassword')}}"><i class="fa fa-key fa-fw"></i> Change Password</a>
                 </li>
                 <li class="divider"></li>
@@ -220,9 +224,18 @@
 
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
-
             <ul class="nav" id="side-menu">
-
+                <li class="sidebar-search">
+                    <div class="input-group custom-search-form">
+                        <input type="text" class="form-control" placeholder="Search...">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
+                    </div>
+                    <!-- /input-group -->
+                </li>
                 <li>
                     <a href="{{route('welcomeAdmin')}}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
@@ -300,7 +313,7 @@
                                 Realizar</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-laptop fa-fw"></i>
+                            <a href="{{url('delivery/realizados')}}"><i class="fa fa-laptop fa-fw"></i>
                                 Deliveris Realizados</a>
                         </li>
 

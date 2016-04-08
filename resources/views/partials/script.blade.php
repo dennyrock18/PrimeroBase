@@ -22,16 +22,19 @@
         <!-- iCheck -->
 {!! Html::script('admin/plugins/iCheck/icheck.min.js') !!}
 
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.1/js/bootstrap-datepicker.js"></script>
 
         <!-- Morris Charts JavaScript -->
 
         <script>
+
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
-    </script>
+        </script>
+
+
+
 
 
 

@@ -21,12 +21,10 @@ class DeliveriController extends Controller
     {
         $today = new DateTime();
 
-       $users = User::where('fecha_entrega', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->paginate(2);
+        $users = User::where('fecha_entrega', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->paginate(2);
+        $usersAplasados = User::where('fecha_entrega', '<', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->get();
 
-        $usersAplasados = User::where('fecha_entrega','<', $today->format('Y-m-d'))->where('role', 'user')->where('activo', '1')->get();
-
-        foreach($usersAplasados as $user)
-        {
+        foreach ($usersAplasados as $user) {
             $user = $this->AplazarDelivery($user->id);
         }
 
@@ -59,7 +57,7 @@ class DeliveriController extends Controller
         $fecha = $request->get('fecha' . $id);
 
         //Verifico si la fecha existe
-        if (!isTrueFecha($id,$fecha)) {
+        if (!isTrueFecha($id, $fecha)) {
             Alert::message('The date is incorrect', 'danger');
             return redirect()->back();
         }
@@ -103,8 +101,8 @@ class DeliveriController extends Controller
         $delivery->chofer_id = currentUser()->id;
 
         $user->activo = 0;
-        $user->fecha_entrega=null;
-        $user->terminado=0;
+        $user->fecha_entrega = null;
+        $user->terminado = 0;
         $user->save();
         $delivery->save();
 
@@ -155,5 +153,15 @@ class DeliveriController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deliveryR()
+    {
+        if (currentUser()->role == 'admin')
+            $usersDeivery = delivery::get();
+        else
+            $usersDeivery = delivery::where('chofer_id', currentUser()->id)->get();
+
+        return view('auth.Delivery.deliveryR', compact('usersDeivery'));
     }
 }
